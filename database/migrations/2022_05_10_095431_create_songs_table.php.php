@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
-            $table->string("id");
             $table->text("name");
             $table->float("length");
             $table->text("artist");
