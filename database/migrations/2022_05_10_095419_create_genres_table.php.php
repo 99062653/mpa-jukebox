@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->date("created_on");
+            $table->string("id");
+            $table->text("name");
+            $table->date("date_created");
             $table->boolean("deleted")->default(false);
         });
     }
