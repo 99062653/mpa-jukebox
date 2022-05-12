@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date("date_added");
             $table->boolean("deleted")->default(false);
 
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('genre_id')->references('id')->on('genres'); //foreign key voor genre id van genres
         });
     }
 

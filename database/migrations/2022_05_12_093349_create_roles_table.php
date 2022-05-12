@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->unsignedBigInteger("role_id");
+            $table->text("name");
             $table->date("date_created");
             $table->boolean("deleted")->default(false);
-
-            $table->foreign('role_id')->references('id')->on('roles'); //foreign key voor role id van roles
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('roles');
     }
 };
