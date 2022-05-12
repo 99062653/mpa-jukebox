@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->date("date_created");
+            $table->string("role");
             $table->boolean("deleted")->default(false);
         });
     }
