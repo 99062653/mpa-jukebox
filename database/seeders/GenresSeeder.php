@@ -3,13 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Genre;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class GenresSeeder extends Seeder
 {
+    //php artisan db:seed --class=GenresSeeder
     /**
      * Run the database seeds.
      *
@@ -29,6 +28,11 @@ class GenresSeeder extends Seeder
 
         DB::table('genres')->insert([
             "name" => "Hip Hop",
+            "date_created" => Carbon::now()
+        ]);
+
+        DB::table('genres')->insert([
+            "name" => "Rap",
             "date_created" => Carbon::now()
         ]);
 
