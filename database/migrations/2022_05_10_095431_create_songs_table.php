@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
             $table->text("name");
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');
             $table->float("length");
             $table->text("artist");
             $table->text("cover_art");
