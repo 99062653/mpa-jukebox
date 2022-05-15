@@ -1,0 +1,27 @@
+html, body {
+	height: 100%;
+	background-color: rgb(25, 2, 45);
+}
+
+header {
+
+}
+
+nav {
+	background-color: rgb(38, 4, 68);
+}
+
+#content{
+	position:absolute;
+	top:100px;
+}
+
+footer {
+	background-color: rgb(38, 4, 68);
+}
+
+footer > div > p {
+	margin: 0;
+	padding: 5px;
+	color: rgb(255,24,179);
+}
