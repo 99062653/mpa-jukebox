@@ -14,6 +14,12 @@ nav {
 #content{
 	position:absolute;
 	top:100px;
+	padding: 15px;
+}
+
+h1 {
+	font-weight: bolder;
+	color: white;
 }
 
 footer {
