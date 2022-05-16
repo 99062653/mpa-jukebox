@@ -5,7 +5,7 @@ use Carbon\Carbon;
 ?>
 @switch($t = date("h", strtotime(Carbon::now())))
             @case($t > 06 && $t < 12)
-            <h1>Goedemorgen</h1>
+            <h1>Goedemorgen,</h1>
             @break
 
             @case($t > 12 && $t < 18)
@@ -23,5 +23,4 @@ use Carbon\Carbon;
             @default
             <h1>Welkom,</h1>
             @break
-
-        @endswitch
+@endswitch
