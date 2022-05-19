@@ -1,15 +1,11 @@
 html, body {
-	min-height: 100%;
-	min-width: 100%;
+	height: 100vh; /* 100% view height */
+	width: 100vw; /* 100% view width */
 	background-color: rgb(25, 2, 45);
 }
 
-header {
-
-}
-
 nav {
-	min-width: 100%;
+	width: 100vw;
 	background-color: rgb(38, 4, 68);
 }
 
@@ -44,13 +40,15 @@ input[type=submit] {
 }
 
 #content{
-	min-width: 100%;
+	width: 100vw;
 	position:absolute;
 	top:100px;
 	padding: 15px;
 }
 
 #form {
+	position: relative;
+	top: 17.5vh;
 	margin: 0 auto;
 	width: 375px;
 	height: 250px;
@@ -69,6 +67,7 @@ h1 {
 }
 
 footer {
+	width: 100vw;
 	background-color: rgb(38, 4, 68);
 }
 
