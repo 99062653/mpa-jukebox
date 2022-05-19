@@ -44,6 +44,7 @@ input[type=submit] {
 }
 
 #content{
+	min-width: 100%;
 	position:absolute;
 	top:100px;
 	padding: 15px;
@@ -51,8 +52,8 @@ input[type=submit] {
 
 #form {
 	margin: 0 auto;
-	min-width: 375px;
-	min-height: 250px;
+	width: 375px;
+	height: 250px;
 	padding: 15px;
 	border-radius: 25px;
 	background-color: rgb(38, 4, 68);

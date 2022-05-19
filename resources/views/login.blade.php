@@ -14,6 +14,9 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" placeholder="Password" />
                 </div>
+                <div class="form-group">
+                    {{-- ERROR MESSAGE HIER --}}
+                </div>
                 <input type="button" class="link" onclick="location.href='/';" value="Terug" />
                 <input type="submit" class="link" value="Login" />
             </form>
