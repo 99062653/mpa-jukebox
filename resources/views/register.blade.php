@@ -1,11 +1,13 @@
 @include("layout/header")
 
+
 <body>
     @include("layout/navigation")
 
     <div id="content">
         <div id="form">
-            <form method="POST">
+            <form action="" method="POST">
+                @csrf {{-- dit zorgt voor veiligheid ofzo --}}
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input type="text" name="username" class="form-control" placeholder="Username" />

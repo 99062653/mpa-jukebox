@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home'); //de view die opent wanneer je op de pagina belandt    
-});
+Route::view('/', 'home');
+Route::view('/user', 'user');
+Route::view('/user/login', 'login');
+Route::view('/user/register', 'register');
 
-Route::get('/login', function () {
-    return view('login');
-});
 
-Route::get('/register', function () {
-    return view('register');
+Route::controller(UserController::class)->group(function () {
+    
 });
