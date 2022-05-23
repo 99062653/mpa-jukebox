@@ -8,7 +8,7 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 		<a class="navbar-brand" href="/">
 			<img src="../img/logo.gif" alt="JukeBox_logo" width="250">
 		</a>
-		@if ($route != "login" && $route != "register")
+		@if ($route != "user/login" && $route != "user/register")
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item">

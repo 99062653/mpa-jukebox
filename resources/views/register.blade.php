@@ -6,19 +6,17 @@
 
     <div id="content">
         <div id="form">
-            <form action="" method="POST">
+            <form action="/user/register" method="POST">
                 @csrf {{-- dit zorgt voor veiligheid ofzo --}}
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" class="form-control" placeholder="Username" />
+                    <input type="text" name="username" class="form-control" placeholder="Username" value="{{ $username ?? '' }}{{--ternory operator. soortvan isset--}}" required />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" placeholder="Password" />
                 </div>
-                <div class="form-group">
-                    {{-- ERROR MESSAGE HIER --}}
-                </div>
+                <span class="error">{{ $issue ?? '' }}</span>
                 <input type="button" class="link" onclick="location.href='/';" value="Terug" />
                 <input type="submit" class="link" value="Register" />
             </form>

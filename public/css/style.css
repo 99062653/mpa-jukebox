@@ -76,3 +76,8 @@ footer > div > p {
 	padding: 5px;
 	color: rgb(255,24,179);
 }
+
+.error {
+	position: absolute;
+	color: rgb(255, 0, 0);
+}
