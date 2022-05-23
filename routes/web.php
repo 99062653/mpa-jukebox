@@ -24,4 +24,5 @@ Route::view('/user/register', 'register');
 Route::controller(UserController::class)->group(function () {
     Route::post('/user/login', [UserController::class, 'login']);
     Route::post('/user/register', [UserController::class, 'register']);
+    Route::get('/user/logout', [UserController::class, 'logout']);
 });

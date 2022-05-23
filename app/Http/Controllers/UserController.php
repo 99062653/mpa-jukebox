@@ -21,6 +21,8 @@ class UserController extends Controller
             $password = DB::table('users')->select('password')->where('username', $req->username)->first();
 
             if (Hash::check($req->password, $password->password)) {
+
+                session(['user' => $req->username]);
                 return view('home');
             }
             else {
@@ -42,9 +44,17 @@ class UserController extends Controller
 
             DB::insert('INSERT INTO users (username, password, role_id, date_created) values (?, ?, ?, ?)', [$req->username, $Hashedpassword, 0, Carbon::now()]);
 
+            session(['user' => $req->username]);
             return view('home');
         } else {
             return view('register', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
         }
+    }
+
+    public function logout() 
+    {
+        session()->forget('user');
+
+        return view('home');
     }
 }
