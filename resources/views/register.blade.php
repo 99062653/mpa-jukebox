@@ -2,7 +2,6 @@
 
 
 <body>
-    @include("layout/navigation")
 
     <div id="content">
         <div id="form">
@@ -23,7 +22,6 @@
         </div>
     </div>
 
-    @include("layout/footer")
 </body>
 
 </html>

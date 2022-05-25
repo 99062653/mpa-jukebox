@@ -1,6 +1,9 @@
-html, body {
-	height: 100vh; /* 100% view height */
-	width: 100vw; /* 100% view width */
+html,
+body {
+	height: 100vh;
+	/* 100% view height */
+	width: 100vw;
+	/* 100% view width */
 	background-color: rgb(25, 2, 45);
 }
 
@@ -9,10 +12,11 @@ nav {
 	background-color: rgb(38, 4, 68);
 }
 
-.link, .nav-link {
+.link,
+.nav-link {
 	text-decoration: none;
 	color: rgb(255, 255, 255);
-	background-color: rgb(255,24,179);
+	background-color: rgb(255, 24, 179);
 	border-radius: 23px;
 	margin-right: 15px;
 }
@@ -27,7 +31,8 @@ nav {
 	float: right;
 }
 
-.link:hover, .nav-link:hover {
+.link:hover,
+.nav-link:hover {
 	color: rgb(0, 0, 0);
 }
 
@@ -39,10 +44,10 @@ input[type=submit] {
 	float: right;
 }
 
-#content{
+#content {
 	width: 100vw;
-	position:absolute;
-	top:100px;
+	position: absolute;
+	top: 100px;
 	padding: 15px;
 }
 
@@ -57,8 +62,15 @@ input[type=submit] {
 	background-color: rgb(38, 4, 68);
 }
 
+#dropdown-list {
+	display: absolute;
+	left: -7vw;
+	height: 85px;
+	top: 5vh;
+}
+
 label {
-	color: rgb(255,24,179);
+	color: rgb(255, 24, 179);
 }
 
 h1 {
@@ -71,10 +83,10 @@ footer {
 	background-color: rgb(38, 4, 68);
 }
 
-footer > div > p {
+footer>div>p {
 	margin: 0;
 	padding: 5px;
-	color: rgb(255,24,179);
+	color: rgb(255, 24, 179);
 }
 
 .error {

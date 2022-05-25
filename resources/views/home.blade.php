@@ -1,7 +1,7 @@
 @include("layout/header")
 
 <body>
-    @include("layout/navigation")
+    @include("layout/nav")
     
     <div id="content">
         @include("funcs/time")
