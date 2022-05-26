@@ -63,10 +63,9 @@ input[type=submit] {
 }
 
 #dropdown-list {
-	display: absolute;
-	left: -7vw;
 	height: 85px;
-	top: 5vh;
+    top: 45px;
+    left: -100px;
 }
 
 label {

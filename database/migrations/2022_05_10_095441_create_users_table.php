@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date("date_created");
             $table->boolean("deleted")->default(false);
 
-            $table->foreign('role_id')->references('id')->on('roles'); //foreign key voor role id van roles
+            //$table->foreign('role_id')->references('id')->on('roles'); //foreign key voor role id van roles
         });
     }
 
