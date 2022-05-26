@@ -17,6 +17,10 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 						<li class="nav-item">
 							<a class="nav-link" href="/user/register">Register</a>
 						</li>
+					@elseif ($route != '/')
+						<li class="nav-item">
+							<a class="nav-link" href="/">Terug</a>
+						</li>
 					@else
 						<li class="nav-item">
 							<div class="dropdown">
