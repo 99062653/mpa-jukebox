@@ -75,6 +75,20 @@ label {
 h1 {
 	font-weight: bolder;
 	color: rgb(255, 255, 255);
+	margin-bottom: 15px;
+}
+
+h2 {
+	font-weight: bold;
+	color: rgb(255, 255, 255);
+}
+
+table {
+	background-color: rgb(38, 4, 68);
+}
+
+td {
+	color: rgb(255, 255, 255);
 }
 
 footer {
@@ -92,3 +106,4 @@ footer>div>p {
 	position: absolute;
 	color: rgb(255, 0, 0);
 }
+

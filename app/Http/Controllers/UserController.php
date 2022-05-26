@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function login(Request $req)
-    {
+    //ENTRY
+    public function login(Request $req) {
         $username = DB::table('users')->where([
             ['username', '=', $req->username],
             ['deleted', '=', 0],
@@ -33,8 +33,7 @@ class UserController extends Controller
         }
     }
 
-    public function register(Request $req)
-    {
+    public function register(Request $req) {
         $username = DB::table('users')->where([
             ['username', '=', $req->username]
         ])->get();
@@ -51,10 +50,15 @@ class UserController extends Controller
         }
     }
 
-    public function logout() 
-    {
+    public function logout() {
         session()->forget('user');
 
         return redirect('/');
+    }
+    //MISC
+    public function getUserByName($name) {
+        $user = DB::table('users')->where([
+            ['username', '=', $name]
+        ])->get();
     }
 }
