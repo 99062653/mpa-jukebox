@@ -10,11 +10,15 @@
         <table>
             <tr>
                 <td class="td-name">Username</td>
-                <td class="td-data"></td>
+                <td class="td-data">{{ session('user')['name'] }}</td>
+            </tr>
+            <tr>
+                <td class="td-name">Wachtwoord</td>
+                <td class="td-data">{{ session('user')['password'] }}</td>
             </tr>
             <tr>
                 <td class="td-name">Datum gemaakt</td>
-                <td class="td-data"></td>
+                <td class="td-data">{{ session('user')['created_on'] }}</td>
             </tr>
         </table>
 

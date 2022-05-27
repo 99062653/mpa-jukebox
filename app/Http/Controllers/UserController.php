@@ -18,11 +18,11 @@ class UserController extends Controller
         ])->get();
 
         if (count($username) != 0) {
-            $password = DB::table('users')->select('password')->where('username', $req->username)->first();
+            $user = DB::table('users')->select('*')->where('username', $req->username)->first();
 
-            if (Hash::check($req->password, $password->password)) {
+            if (Hash::check($req->password, $user->password)) {
 
-                session(['user' => $req->username]);
+                session()->put('user', ['name' => $req->username, 'created_on' => $user->date_created, 'password' => $user->password]);
                 return redirect('/');
             }
             else {
@@ -43,7 +43,7 @@ class UserController extends Controller
 
             DB::insert('INSERT INTO users (username, password, role_id, date_created) values (?, ?, ?, ?)', [$req->username, $Hashedpassword, 0, Carbon::now()]);
 
-            session(['user' => $req->username]);
+            session()->put('user', ['name' => $req->username, 'created_on' => Carbon::now(), 'password' => $Hashedpassword]);
             return redirect('/');
         } else {
             return view('register', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
@@ -56,9 +56,5 @@ class UserController extends Controller
         return redirect('/');
     }
     //MISC
-    public function getUserByName($name) {
-        $user = DB::table('users')->where([
-            ['username', '=', $name]
-        ])->get();
-    }
+
 }

@@ -85,10 +85,17 @@ h2 {
 
 table {
 	margin: 0 auto;
+    width: 750px;
+	border-radius: 23px;
 	background-color: rgb(38, 4, 68);
 }
 
+tr {
+	
+}
+
 td {
+	padding: 15px;
 	color: rgb(255, 255, 255);
 }
 
@@ -106,4 +113,8 @@ footer>div>p {
 .error {
 	position: absolute;
 	color: rgb(255, 0, 0);
+}
+
+.td-name {
+	color: rgb(225, 221, 221);
 }
