@@ -119,3 +119,14 @@ footer>div>p {
 .td-name {
 	color: rgb(225, 221, 221);
 }
+
+.td-password {
+	color: rgb(255, 255, 255);
+	text-decoration: none;
+}
+
+.td-password:hover {
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	text-decoration: underline;
+}

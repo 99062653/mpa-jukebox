@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td class="td-name">Wachtwoord</td>
-                <td class="td-data">{{ session('user')['password'] }}</td>
+                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ session('user')['password'] }}</a></td>
             </tr>
             <tr>
                 <td class="td-name">Datum gemaakt</td>
