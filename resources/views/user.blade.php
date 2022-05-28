@@ -25,9 +25,11 @@
         <h2>Playlists</h2>
 
         <table>
-            <tr>
-                <td>het is nogal leeg hier :(</td>
-            </tr>
+            @if (!session('playlist'))
+                <tr>
+                    <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/playlist/create">maak een playlist</a></b></td>
+                </tr>
+            @endif
         </table>
     </div>
 

@@ -37,11 +37,15 @@ nav {
 }
 
 input[type=button] {
-	float: left;
+	position: absolute;
+	left: 15px;
+	bottom: 15px;
 }
 
 input[type=submit] {
-	float: right;
+	position: absolute;
+	right: 0;
+	bottom: 15px;
 }
 
 #content {
@@ -121,12 +125,21 @@ footer>div>p {
 }
 
 .td-password {
-	color: rgb(225, 221, 221);
+	color: rgb(255, 255, 255);
 	text-decoration: none;
 }
 
 .td-password:hover {
-	color: rgb(225, 221, 221);
+	color: rgb(255, 255, 255);
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+.td-create {
+	text-align: center;
+}
+
+.td-create > b > a {
+	color: rgb(255, 24, 179);
+	text-decoration: none;
 }

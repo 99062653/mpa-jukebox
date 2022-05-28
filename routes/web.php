@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +17,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home');
+
 Route::view('/user', 'user');
 Route::view('/user/login', 'login');
 Route::view('/user/register', 'register');
+
+Route::view('/playlist', 'playlist');
+Route::view('/playlist/create', 'playlist');
+Route::view('/playlist/edit', 'playlist');
 
 
 Route::controller(UserController::class)->group(function () {
     Route::post('/user/login', [UserController::class, 'login']);
     Route::post('/user/register', [UserController::class, 'register']);
     Route::get('/user/logout', [UserController::class, 'logout']);
+});
+
+Route::controller(PlaylistController::class)->group(function () {
+
 });

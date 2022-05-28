@@ -15,7 +15,7 @@
                     <input type="password" name="password" class="form-control" placeholder="Password" required />
                 </div>
                 <span class="error">{{ $issue ?? '' }}</span>
-                <input type="button" class="link" onclick="location.href='/';" value="Terug" />
+                <input type="button" class="link" onclick="history.back();" value="Terug" />
                 <input type="submit" class="link" value="Login" />
             </form>
         </div>
