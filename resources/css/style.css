@@ -85,13 +85,14 @@ h2 {
 
 table {
 	margin: 0 auto;
-    width: 750px;
+    max-width: 750px;
+	max-height: 250px;
 	border-radius: 23px;
 	background-color: rgb(38, 4, 68);
 }
 
 tr {
-	
+
 }
 
 td {

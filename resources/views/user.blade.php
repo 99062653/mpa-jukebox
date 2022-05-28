@@ -5,11 +5,11 @@
     
     <div id="content">
         <h1>Account overview,</h1>
-        <h2>Profile</h2>
+        <h2>Profiel</h2>
 
         <table>
             <tr>
-                <td class="td-name">Username</td>
+                <td class="td-name">Naam</td>
                 <td class="td-data">{{ session('user')['name'] }}</td>
             </tr>
             <tr>
@@ -23,6 +23,12 @@
         </table>
 
         <h2>Playlists</h2>
+
+        <table>
+            <tr>
+                <td>het is nogal leeg hier :(</td>
+            </tr>
+        </table>
     </div>
 
     @include("layout/footer")
