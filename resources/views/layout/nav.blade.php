@@ -1,8 +1,8 @@
-<?php
+@php
 
 $route = request()->route()->uri; // haal de huidige URI op: zoals login of register
 
-?>
+@endphp
 <nav class="navbar navbar-expand-sm fixed-top">
 	<div class="container-fluid ">
 		<a class="navbar-brand" href="/">
@@ -19,7 +19,7 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 						</li>
 					@elseif ($route != '/')
 						<li class="nav-item">
-							<a class="nav-link" href="/">Terug</a>
+							<a class="nav-link" href="/">Home</a>
 						</li>
 					@else
 						<li class="nav-item">
