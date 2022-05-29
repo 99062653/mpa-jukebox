@@ -34,5 +34,7 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(PlaylistController::class)->group(function () {
-
+    Route::post('/playlist/create', [PlaylistController::class, 'create']);
+    Route::post('/playlist/edit', [PlaylistController::class, 'edit']);
+    Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
 });

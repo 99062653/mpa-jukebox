@@ -135,11 +135,11 @@ footer>div>p {
 	text-decoration: underline;
 }
 
-.td-create {
+.td-create, .td-edit {
 	text-align: center;
 }
 
-.td-create > b > a {
+.td-create > b > a, .td-edit > b > a {
 	color: rgb(255, 24, 179);
 	text-decoration: none;
 }

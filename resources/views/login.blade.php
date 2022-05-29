@@ -8,7 +8,8 @@
                 @csrf {{-- dit zorgt voor veiligheid ofzo --}}
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" class="form-control" placeholder="Username" value="{{ $username ?? '' }}{{--ternory operator. soortvan isset--}}" required />
+                    <input type="text" name="username" class="form-control" placeholder="Username"
+                        value="{{ $username ?? '' }}{{--ternory operator. soortvan isset--}}" required />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

@@ -25,9 +25,16 @@
         <h2>Playlists</h2>
 
         <table>
-            @if (!session('playlist'))
+            @if (!session('playlists'))
                 <tr>
                     <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/playlist/create">maak een playlist</a></b></td>
+                </tr>
+            @else
+                <tr>
+                    @foreach (session('playlists') as $playlist)
+                        <td class="td-edit"><b><a href="#"><?= $playlist['name'] ?></a></b></td>
+                
+                    @endforeach
                 </tr>
             @endif
         </table>

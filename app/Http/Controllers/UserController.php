@@ -51,7 +51,7 @@ class UserController extends Controller
     }
 
     public function logout() {
-        session()->forget('user');
+        session()->flush(); //vergeet alles
 
         return redirect('/');
     }

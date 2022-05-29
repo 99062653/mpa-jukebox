@@ -2,7 +2,7 @@
 
 <body>
     @include("layout/nav")
-    
+
     <div id="content">
         @include("funcs/time")
     </div>
