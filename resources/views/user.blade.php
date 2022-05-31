@@ -10,15 +10,15 @@
         <table>
             <tr>
                 <td class="td-name">Naam</td>
-                <td class="td-data">{{ session('user')['name'] }}</td>
+                <td class="td-data">{{ username }}</td>
             </tr>
             <tr>
                 <td class="td-name">Wachtwoord</td>
-                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ session('user')['password'] }}</a></td>
+                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ password }}</a></td>
             </tr>
             <tr>
                 <td class="td-name">Datum gemaakt</td>
-                <td class="td-data">{{ session('user')['created_on'] }}</td>
+                <td class="td-data">{{ date_created }}</td>
             </tr>
         </table>
 

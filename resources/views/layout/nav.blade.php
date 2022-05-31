@@ -10,7 +10,7 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 		</a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">
-					@if (!session('user'))
+					@if (!session('user_id'))
 						<li class="nav-item">
 							<a class="nav-link" href="/user/login">Login</a>
 						</li>

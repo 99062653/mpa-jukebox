@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\PlaylistController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\EntryController;
+use App\Http\Controllers\SongController;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
@@ -27,10 +28,10 @@ Route::view('/playlist/create', 'playlist');
 Route::view('/playlist/edit', 'playlist');
 
 
-Route::controller(UserController::class)->group(function () {
-    Route::post('/user/login', [UserController::class, 'login']);
-    Route::post('/user/register', [UserController::class, 'register']);
-    Route::get('/user/logout', [UserController::class, 'logout']);
+Route::controller(EntryController::class)->group(function () {
+    Route::post('/user/login', [EntryController::class, 'login']);
+    Route::post('/user/register', [EntryController::class, 'register']);
+    Route::get('/user/logout', [EntryController::class, 'logout']);
 });
 
 Route::controller(PlaylistController::class)->group(function () {
@@ -38,3 +39,5 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::post('/playlist/edit', [PlaylistController::class, 'edit']);
     Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
 });
+
+Route::get('songs', [Songcontroller::class, 'getSongs']);
