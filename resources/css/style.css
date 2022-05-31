@@ -12,6 +12,10 @@ nav {
 	background-color: rgb(38, 4, 68);
 }
 
+.dropdown-item:focus {
+	background-color: rgb(255, 24, 179);
+}
+
 .searchbar {
     position: absolute;
     width: 250px;
@@ -35,7 +39,6 @@ nav {
 	min-width: 50px;
 	padding: 0.425rem 0.75rem;
 }
-
 
 .link,
 .searchbar-link,
