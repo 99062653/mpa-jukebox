@@ -3,6 +3,7 @@
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 
-Route::view('/user', 'user');
-Route::view('/user/login', 'login');
-Route::view('/user/register', 'register');
+// Route::view('/user', 'user');
+Route::view('/user/login', 'entry/login');
+Route::view('/user/register', 'entry/register');
 
-Route::view('/playlist', 'playlist');
-Route::view('/playlist/create', 'playlist');
-Route::view('/playlist/edit', 'playlist');
+Route::view('/playlist', 'pages/playlist');
+Route::view('/playlist/create', 'pages/playlist');
+Route::view('/playlist/edit', 'pages/playlist');
 
 
 Route::controller(EntryController::class)->group(function () {
@@ -41,3 +42,5 @@ Route::controller(PlaylistController::class)->group(function () {
 });
 
 Route::get('songs', [Songcontroller::class, 'getSongs']);
+
+Route::get('/user', [UserController::class, 'getSessionUser']);

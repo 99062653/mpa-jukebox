@@ -8,17 +8,18 @@ use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
 {
-    public function create(Request $req) {
+    public function create(Request $req)
+    {
         session()->push('playlists', ['name' => $req->name]);
 
         return redirect('/user');
     }
 
-    public function edit(Request $req) {
-
+    public function edit(Request $req)
+    {
     }
 
-    public function delete(Request $req) {
-
+    public function delete(Request $req)
+    {
     }
 }

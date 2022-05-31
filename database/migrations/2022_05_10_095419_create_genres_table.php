@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('genres', function (Blueprint $table) {
             $table->id();
             $table->text("name");
+            $table->text("rgb_color");
             $table->date("date_created");
             $table->boolean("deleted")->default(false);
         });
