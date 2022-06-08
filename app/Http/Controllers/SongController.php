@@ -7,8 +7,5 @@ use App\Models\Song;
 
 class Songcontroller extends Controller
 {
-    function getSongs()
-    {
-        return Song::all();
-    }
+    
 }
