@@ -88,6 +88,11 @@ footer>div>p {
 	top: 100px;
 }
 
+#content-mid-playlists {
+	position: relative;
+	top: 250px;
+}
+
 #form {
 	position: relative;
 	top: 17.5vh;
@@ -187,12 +192,12 @@ footer>div>p {
 	color: rgb(225, 221, 221);
 }
 
-.td-password {
+.td-password, .hidden-link {
 	color: rgb(255, 255, 255);
 	text-decoration: none;
 }
 
-.td-password:hover {
+.td-password:hover, .hidden-link:hover {
 	color: rgb(255, 255, 255);
 	cursor: pointer;
 	text-decoration: underline;

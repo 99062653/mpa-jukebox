@@ -21,7 +21,7 @@ use App\Models\Genre;
         </div>
         <div id="content-mid">
             <div id="content-mid-genres">
-                <h2>Genres</h2>
+                <h2><a class="hidden-link" href="genres">Genres</a></h2>
                 <div id="genres">
                     @foreach (Genre::all() as $Genre)
                     <div class="genre" style="background-color: <?= $Genre->rgb_color ?>">
@@ -33,7 +33,7 @@ use App\Models\Genre;
                 </div>
             </div>
             <div id="content-mid-songs">
-                <h2>Songs</h2>
+                <h2><a class="hidden-link" href="songs">Songs</a></h2>
                 <div id="songs">
                     {{-- loop hiero --}}
                     <div class="song">
@@ -41,7 +41,9 @@ use App\Models\Genre;
                     </div>
                 </div>
             </div>
-
+            <div id="content-mid-playlists">
+                <h2><a class="hidden-link" href="playlist">Playlists</a></h2>
+            </div>
         </div>
         <div id="content-bottom">
 
