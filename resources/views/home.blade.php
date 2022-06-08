@@ -20,15 +20,28 @@ use App\Models\Genre;
             </div>
         </div>
         <div id="content-mid">
-            <div id="genres">
-                @foreach (Genre::all() as $Genre)
-                <div class="genre" style="background-color: <?= $Genre->rgb_color ?>">
-                    <b>
-                        <?= $Genre->name ?>
-                    </b>
+            <div id="content-mid-genres">
+                <h2>Genres</h2>
+                <div id="genres">
+                    @foreach (Genre::all() as $Genre)
+                    <div class="genre" style="background-color: <?= $Genre->rgb_color ?>">
+                        <b>
+                            <?= $Genre->name ?>
+                        </b>
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
+            <div id="content-mid-songs">
+                <h2>Songs</h2>
+                <div id="songs">
+                    {{-- loop hiero --}}
+                    <div class="song">
+
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div id="content-bottom">
 
