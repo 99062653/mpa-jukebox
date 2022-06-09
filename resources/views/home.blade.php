@@ -21,9 +21,8 @@ use App\Models\Genre;
         </div>
         <div id="content-mid">
             <div id="content-mid-genres">
-                <h2><a class="hidden-link" href="genres">Genres</a></h2>
                 <div id="genres">
-                    @foreach (Genre::all() as $Genre)
+                    @foreach (Genre::all()->shuffle() as $Genre)
                     <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
                         <b>
                             <a class="hidden-link" href="/genre/<?= $Genre->id ?>">{{ $Genre->name }}</a>
@@ -32,21 +31,6 @@ use App\Models\Genre;
                     @endforeach
                 </div>
             </div>
-            <div id="content-mid-songs">
-                <h2><a class="hidden-link" href="/song/create">Songs</a></h2>
-                <div id="songs">
-                    {{-- loop hiero --}}
-                    <div class="song">
-
-                    </div>
-                </div>
-            </div>
-            @if (session('user_id'))
-                <div id="content-mid-playlists">
-                    <h2><a class="hidden-link" href="/playlist/create">Playlists</a></h2>
-                    
-                </div>
-            @endif
         </div>
         <div id="content-bottom">
 

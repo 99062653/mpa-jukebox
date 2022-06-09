@@ -83,16 +83,6 @@ footer>div>p {
 	top: 50px;
 }
 
-#content-mid-songs {
-	position: relative;
-	top: 100px;
-}
-
-#content-mid-playlists {
-	position: relative;
-	top: 250px;
-}
-
 #form {
 	position: relative;
 	top: 17.5vh;
@@ -105,7 +95,7 @@ footer>div>p {
 }
 
 #dropdown-list {
-	height: 85px;
+	min-height: 85px;
 	top: 45px;
 	left: -100px;
 }

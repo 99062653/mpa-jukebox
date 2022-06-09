@@ -27,10 +27,10 @@ class EntryController extends Controller
                 session()->put('user_id', $user->id);
                 return redirect('/');
             } else {
-                return view('pages/entry/login', ['issue' => 'Dit wachtwoord is niet juist', 'username' => $req->username]);
+                return view('pages/entry', ['issue' => 'Dit wachtwoord is niet juist', 'username' => $req->username]);
             }
         } else {
-            return view('pages/entry/login', ['issue' => 'Dit account bestaat niet', 'username' => $req->username]);
+            return view('pages/entry', ['issue' => 'Dit account bestaat niet', 'username' => $req->username]);
         }
     }
 
@@ -46,7 +46,7 @@ class EntryController extends Controller
             session()->put('user_id', $user->id);
             return redirect('/');
         } else {
-            return view('pages/entry/register', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
+            return view('pages/entry', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
         }
     }
 

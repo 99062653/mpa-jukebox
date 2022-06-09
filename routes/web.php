@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 // ~~ VIEW ~~
 Route::view('/', 'home');
 
-Route::view('/user/login', 'pages/entry/login');
-Route::view('/user/register', 'pages/entry/register');
+Route::view('/user/login', 'pages/entry');
+Route::view('/user/register', 'pages/entry');
 
 Route::view('/playlist', 'pages/playlist');
 Route::view('/playlist/create', 'pages/playlist');
