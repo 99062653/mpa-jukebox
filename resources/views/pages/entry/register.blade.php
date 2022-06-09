@@ -17,7 +17,7 @@
                     <input type="password" name="password" class="form-control" placeholder="Password" />
                 </div>
                 <span class="error">{{ $issue ?? '' }}</span>
-                <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
+                <a type="button" class="link back" href="/">Terug</a>
                 <input type="submit" class="link" value="Register" />
             </form>
         </div>
