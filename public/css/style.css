@@ -98,7 +98,7 @@ footer>div>p {
 	top: 17.5vh;
 	margin: 0 auto;
 	width: 375px;
-	height: 250px;
+	min-height: 250px;
 	padding: 15px;
 	border-radius: 25px;
 	background-color: rgb(38, 4, 68);

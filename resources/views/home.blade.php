@@ -33,7 +33,7 @@ use App\Models\Genre;
                 </div>
             </div>
             <div id="content-mid-songs">
-                <h2><a class="hidden-link" href="songs">Songs</a></h2>
+                <h2><a class="hidden-link" href="/song/create">Songs</a></h2>
                 <div id="songs">
                     {{-- loop hiero --}}
                     <div class="song">
@@ -43,7 +43,7 @@ use App\Models\Genre;
             </div>
             @if (session('user_id'))
                 <div id="content-mid-playlists">
-                    <h2><a class="hidden-link" href="playlist/create">Playlists</a></h2>
+                    <h2><a class="hidden-link" href="/playlist/create">Playlists</a></h2>
                     
                 </div>
             @endif
