@@ -1,5 +1,9 @@
 /* ELEMENTS */
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 html,
 body {
 	height: 100vh;
@@ -83,16 +87,6 @@ footer>div>p {
 	top: 50px;
 }
 
-#content-mid-songs {
-	position: relative;
-	top: 100px;
-}
-
-#content-mid-playlists {
-	position: relative;
-	top: 250px;
-}
-
 #form {
 	position: relative;
 	top: 17.5vh;
@@ -105,17 +99,15 @@ footer>div>p {
 }
 
 #dropdown-list {
-	height: 85px;
+	min-height: 85px;
 	top: 45px;
 	left: -100px;
 }
 
 #genres {
 	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
 	gap: 10px 20px;
-	/* row-gap column gap */
+	overflow-x: scroll;
 }
 
 /* CLASSES */
@@ -176,10 +168,10 @@ footer>div>p {
 }
 
 .genre {
-	width: 75px;
-	height: 75px;
+	width: 150px;
+	height: 100px;
+	line-height: 100px;
 	text-align: center;
-	line-height: 75px;
 	border-radius: 23px;
 }
 

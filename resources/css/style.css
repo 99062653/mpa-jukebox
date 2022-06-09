@@ -1,5 +1,9 @@
 /* ELEMENTS */
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 html,
 body {
 	height: 100vh;
@@ -102,10 +106,8 @@ footer>div>p {
 
 #genres {
 	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
 	gap: 10px 20px;
-	/* row-gap column gap */
+	overflow-x: scroll;
 }
 
 /* CLASSES */
@@ -166,10 +168,10 @@ footer>div>p {
 }
 
 .genre {
-	width: 75px;
-	height: 75px;
+	width: 150px;
+	height: 100px;
+	line-height: 100px;
 	text-align: center;
-	line-height: 75px;
 	border-radius: 23px;
 }
 

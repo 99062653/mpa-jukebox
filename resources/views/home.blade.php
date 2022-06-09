@@ -21,13 +21,16 @@ use App\Models\Genre;
         </div>
         <div id="content-mid">
             <div id="content-mid-genres">
+                <h2>Interessante Genres</h2>
                 <div id="genres">
                     @foreach (Genre::all()->shuffle() as $Genre)
-                    <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
-                        <b>
-                            <a class="hidden-link" href="/genre/<?= $Genre->id ?>">{{ $Genre->name }}</a>
-                        </b>
-                    </div>
+                    <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
+                        <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
+                            <b>
+                                {{ $Genre->name }}
+                            </b>
+                        </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
