@@ -24,9 +24,9 @@ use App\Models\Genre;
                 <h2><a class="hidden-link" href="genres">Genres</a></h2>
                 <div id="genres">
                     @foreach (Genre::all() as $Genre)
-                    <div class="genre" style="background-color: <?= $Genre->rgb_color ?>">
+                    <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
                         <b>
-                            <?= $Genre->name ?>
+                            <a class="hidden-link" href="/genre/<?= $Genre->id ?>">{{ $Genre->name }}</a>
                         </b>
                     </div>
                     @endforeach
@@ -41,9 +41,12 @@ use App\Models\Genre;
                     </div>
                 </div>
             </div>
-            <div id="content-mid-playlists">
-                <h2><a class="hidden-link" href="playlist">Playlists</a></h2>
-            </div>
+            @if (session('user_id'))
+                <div id="content-mid-playlists">
+                    <h2><a class="hidden-link" href="playlist/create">Playlists</a></h2>
+                    
+                </div>
+            @endif
         </div>
         <div id="content-bottom">
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\EntryController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteAction;
@@ -20,14 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 
-// Route::view('/user', 'user');
-Route::view('/user/login', 'entry/login');
-Route::view('/user/register', 'entry/register');
+Route::view('/user/login', 'pages/entry/login');
+Route::view('/user/register', 'pages/entry/register');
 
 Route::view('/playlist', 'pages/playlist');
 Route::view('/playlist/create', 'pages/playlist');
 Route::view('/playlist/edit', 'pages/playlist');
 
+Route::get('/user', [UserController::class, 'getSessionUser']);
+
+Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
 
 Route::controller(EntryController::class)->group(function () {
     Route::post('/user/login', [EntryController::class, 'login']);
@@ -40,7 +43,3 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::post('/playlist/edit', [PlaylistController::class, 'edit']);
     Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
 });
-
-Route::get('songs', [Songcontroller::class, 'getSongs']);
-
-Route::get('/user', [UserController::class, 'getSessionUser']);

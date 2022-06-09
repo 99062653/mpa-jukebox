@@ -21,7 +21,7 @@
                         <input type="text" name="name" class="form-control" placeholder="Name"
                             value="{{ $name ?? '' }}{{--ternory operator. soortvan isset--}}" required />
                     </div>
-                    <input type="button" class="link" onclick="history.back();" value="Terug" />
+                    <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
                     <input type="submit" class="link" value="Create" />
                 </form>
             </div>

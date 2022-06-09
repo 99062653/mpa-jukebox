@@ -213,3 +213,8 @@ footer>div>p {
 	color: rgb(255, 24, 179);
 	text-decoration: none;
 }
+
+.back {
+	position: absolute;
+    bottom: 15px;
+}

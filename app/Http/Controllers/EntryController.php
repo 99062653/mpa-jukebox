@@ -14,23 +14,23 @@ class EntryController extends Controller
     //ENTRY
     public function login(Request $req)
     {
-        $username = DB::table('users')->where([
-            ['username', '=', $req->username],
-            ['deleted', '=', 0],
-        ])->get();
+        $username = User::select('*')
+            ->where('username', '=', $req->username)
+            ->where('deleted', '=', 0)
+            ->get();
 
         if (count($username) != 0) {
-            $user = DB::table('users')->select('*')->where('username', $req->username)->first();
+            $user = User::where('username', $req->username)->first();
 
             if (Hash::check($req->password, $user->password)) {
 
                 session()->put('user_id', $user->id);
                 return redirect('/');
             } else {
-                return view('entry/login', ['issue' => 'Dit wachtwoord is niet juist', 'username' => $req->username]);
+                return view('pages/entry/login', ['issue' => 'Dit wachtwoord is niet juist', 'username' => $req->username]);
             }
         } else {
-            return view('entry/login', ['issue' => 'Dit account bestaat niet', 'username' => $req->username]);
+            return view('pages/entry/login', ['issue' => 'Dit account bestaat niet', 'username' => $req->username]);
         }
     }
 
@@ -46,7 +46,7 @@ class EntryController extends Controller
             session()->put('user_id', $user->id);
             return redirect('/');
         } else {
-            return view('entry/register', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
+            return view('pages/entry/register', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
         }
     }
 
