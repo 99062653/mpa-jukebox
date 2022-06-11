@@ -34,6 +34,10 @@ Route::view('/song/edit', 'pages/song');
 
 Route::view('/genres', 'pages/genre');
 
+Route::view('/admin/panel', 'pages/admin');
+Route::view('/admin/users', 'pages/admin');
+Route::view('/admin/songs', 'pages/admin');
+
 // ~~ GET ~~
 
 Route::get('/user', [UserController::class, 'getSessionUser']);

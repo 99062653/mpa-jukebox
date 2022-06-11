@@ -231,3 +231,7 @@ footer>div>p {
 	float: right;
 	font-size: 20px;
 }
+
+.admin-table {
+	margin-bottom: 25px;
+}

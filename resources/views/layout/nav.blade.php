@@ -1,8 +1,3 @@
-@php
-
-$route = request()->route()->uri; // haal de huidige URI op: zoals login of register
-
-@endphp
 <nav class="navbar navbar-expand-sm fixed-top">
 	<div class="container-fluid ">
 		<a class="navbar-brand" href="/">
@@ -17,7 +12,7 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 						<li class="nav-item">
 							<a class="nav-link" href="/user/register">Register</a>
 						</li>
-					@elseif ($route != '/')
+					@elseif (request()->route()->uri != '/')
 						<li class="nav-item">
 							<a class="nav-link" href="/">Home</a>
 						</li>
@@ -30,6 +25,9 @@ $route = request()->route()->uri; // haal de huidige URI op: zoals login of regi
 							  
 								<ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
 								  <li><a class="dropdown-item" href="/user">Account</a></li>
+									@if (session('user_admin'))
+										<li><a class="dropdown-item" href="/admin/panel">Panel</a></li>
+									@endif
 								  <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
 								</ul>
 							</div>

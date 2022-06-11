@@ -22,6 +22,18 @@ use App\Models\Genre;
             </div>
         @else
             <h1 style="color: {{ $rgb_color }}">{{ $name }}</h1>
+            <div class="search-container">
+                <form action="#">
+                    <div class="form-group">
+                        <input type="text" class="form-control searchbar" placeholder="Search.." name="search">
+                        <button type="submit" class="searchbar-link"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+            </div>
+            <h2>Songs</h2>
+            <div id="songs">
+                {{-- foreach hier --}}
+            </div>
         @endif
     </div>
 

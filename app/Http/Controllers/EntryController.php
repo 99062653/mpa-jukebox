@@ -23,6 +23,9 @@ class EntryController extends Controller
             $user = User::where('username', $req->username)->first();
 
             if (Hash::check($req->password, $user->password)) {
+                if ($user->role_id == 2) {
+                    session()->put('user_admin', true);
+                }
 
                 session()->put('user_id', $user->id);
                 return redirect('/');
