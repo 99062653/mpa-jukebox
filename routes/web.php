@@ -37,6 +37,7 @@ Route::view('/genres', 'pages/genre');
 Route::view('/admin/panel', 'pages/admin');
 Route::view('/admin/users', 'pages/admin');
 Route::view('/admin/songs', 'pages/admin');
+Route::view('/admin/genress', 'pages/admin');
 
 // ~~ GET ~~
 

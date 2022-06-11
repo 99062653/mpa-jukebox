@@ -124,6 +124,10 @@ footer>div>p {
 	background-color: rgb(255, 24, 179);
 }
 
+.dropdown-item:hover {
+	background-color: rgb(243, 174, 220);
+}
+
 .searchbar {
 	position: absolute;
 	width: 250px;
@@ -206,9 +210,8 @@ footer>div>p {
 }
 
 .td-password:hover, .hidden-link:hover {
-	color: rgb(255, 255, 255);
+	color: rgb(255, 24, 179);
 	cursor: pointer;
-	text-decoration: underline;
 }
 
 .td-create,

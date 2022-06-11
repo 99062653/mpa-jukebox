@@ -10,13 +10,13 @@ use App\Models\Genre;
     @include("layout/nav")
 
     <div id="content">
-        <h1>ADMIN PANEL</h1>
         @switch(request()->route()->uri)
         @case('admin/panel')
+           <h1>ADMIN PANEL</h1>
             <div id="buttons">
                 <a class="link" href="/admin/users">Users</a>
                 <a class="link" href="/admin/songs">Songs</a>
-                <a class="link" href="/admin/genres">Genres</a>
+                <a class="link" href="/admin/genress">Genres</a>
             </div>
             <div style="margin: 0 auto; width: 500px;">
                 <img src="../img/monkeyadmin.gif" alt="nie boos doen" height="500" width="500">
@@ -24,7 +24,7 @@ use App\Models\Genre;
         @break
 
         @case('admin/users')
-            <a type="button" class="link back" href="/admin/panel">Terug</a>
+            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GEBRUIKERS</h1>
             <div id="users">
                 @foreach (User::all() as $User)
                     <table class="admin-table">
@@ -58,6 +58,7 @@ use App\Models\Genre;
         @break
 
         @case('admin/songs')
+            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > LIEDJES</h1>
             <div id="songs">
                 @foreach (Song::all() as $Song)
                     <table class="admin-table">
@@ -102,9 +103,35 @@ use App\Models\Genre;
             </div>
         @break
 
-        @case('admin/genres')
-            <div id="genres">
-                    
+        @case('admin/genress')
+            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GENRES</h1>
+            <div id="genress">
+                @foreach (Genre::all() as $Genre)
+                    <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
+                        <table class="admin-table">
+                                <tr>
+                                    <td class="td-name">Id</td>
+                                    <td class="td-data">{{ $Genre->id }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-name">Naam</td>
+                                    <td class="td-data">{{ $Genre->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-name">Rgb Kleur</td>
+                                    <td class="td-data" style="color: {{ $Genre->rgb_color }}">{{ $Genre->rgb_color }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-name">Datum Gemaakt</td>
+                                    <td class="td-data">{{ $Genre->date_created }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="td-name">Verwijderd</td>
+                                    <td class="td-data">{{ $Genre->deleted }}</td>
+                                </tr>
+                        </table>
+                    </a>
+                @endforeach
             </div>
         @break
 

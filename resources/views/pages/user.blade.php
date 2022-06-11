@@ -22,7 +22,7 @@
             </tr>
         </table>
 
-        <h2>Playlists</h2>
+        <h2>Playlists <a class="hidden-link" href="/playlist/create">+</a></h2>
 
         <table>
             @if (!session('playlists'))

@@ -12,10 +12,6 @@
 						<li class="nav-item">
 							<a class="nav-link" href="/user/register">Register</a>
 						</li>
-					@elseif (request()->route()->uri != '/')
-						<li class="nav-item">
-							<a class="nav-link" href="/">Home</a>
-						</li>
 					@else
 						<li class="nav-item">
 							<div class="dropdown">
