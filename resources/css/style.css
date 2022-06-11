@@ -110,6 +110,14 @@ footer>div>p {
 	overflow-x: scroll;
 }
 
+#genres-full {
+	display: flex;
+	justify-content: center;
+	gap: 10px 20px;
+	flex-wrap: wrap;
+	margin-bottom: 50px;
+}
+
 /* CLASSES */
 
 .dropdown-item:focus {
@@ -175,6 +183,14 @@ footer>div>p {
 	border-radius: 23px;
 }
 
+.genre-full {
+	width: 250px;
+	height: 250px;
+	line-height: 250px;
+	text-align: center;
+	border-radius: 23px;
+}
+
 .error {
 	position: absolute;
 	color: rgb(255, 0, 0);
@@ -209,4 +225,9 @@ footer>div>p {
 .back {
 	position: absolute;
     bottom: 15px;
+}
+
+.span-link {
+	float: right;
+	font-size: 20px;
 }

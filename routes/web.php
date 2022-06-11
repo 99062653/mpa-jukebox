@@ -32,6 +32,8 @@ Route::view('/playlist/edit', 'pages/playlist');
 Route::view('/song/create', 'pages/song');
 Route::view('/song/edit', 'pages/song');
 
+Route::view('/genres', 'pages/genre');
+
 // ~~ GET ~~
 
 Route::get('/user', [UserController::class, 'getSessionUser']);
