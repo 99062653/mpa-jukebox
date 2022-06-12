@@ -32,8 +32,7 @@
             @else
                 <tr>
                     @foreach (session('playlists') as $playlist)
-                        <td class="td-edit"><b><a href="#">{{ $playlist['name'] }}</a></b></td>
-                
+                        <td class="td-edit"><b><a href="/playlist/{{ $playlist['id'] }}">{{ $playlist['name'] }}</a></b></td>
                     @endforeach
                 </tr>
             @endif

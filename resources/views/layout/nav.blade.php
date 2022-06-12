@@ -20,11 +20,11 @@
 								</a>
 							  
 								<ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
-								  <li><a class="dropdown-item" href="/user">Account</a></li>
+								  <li><a class="dropdown-item" href="/user"><i class="bi bi-person-circle dropdown-icon"></i>Account</a></li>
 									@if (session('user_admin'))
-										<li><a class="dropdown-item" href="/admin/panel">Panel</a></li>
+										<li><a class="dropdown-item" href="/admin/panel"><i class="bi bi-webcam dropdown-icon"></i>Panel</a></li>
 									@endif
-								  <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
+								  <li><a class="dropdown-item" href="/user/logout"><i class="bi bi-box-arrow-left dropdown-icon"></i>Logout</a></li>
 								</ul>
 							</div>
 						</li>

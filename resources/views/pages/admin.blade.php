@@ -58,7 +58,7 @@ use App\Models\Genre;
         @break
 
         @case('admin/songs')
-            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > LIEDJES</h1>
+            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > LIEDJES <a class="hidden-link" href="/song/create">+</a></h1>
             <div id="songs">
                 @foreach (Song::all() as $Song)
                     <table class="admin-table">
@@ -104,7 +104,7 @@ use App\Models\Genre;
         @break
 
         @case('admin/genress')
-            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GENRES</h1>
+            <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GENRES <a class="hidden-link" href="/genre/create">+</a></h1>
             <div id="genress">
                 @foreach (Genre::all() as $Genre)
                     <a class="hidden-link" href="/genre/<?= $Genre->id ?>">

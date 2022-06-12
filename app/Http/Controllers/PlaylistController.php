@@ -10,7 +10,11 @@ class PlaylistController extends Controller
 {
     public function create(Request $req)
     {
-        session()->push('playlists', ['name' => $req->name]);
+        $id = 1;
+        if (session('playlists')) {
+            $id = count(session('playlists')) + 1;
+        }
+        session()->push('playlists', ['id' => $id,'name' => $req->name]);
 
         return redirect('/user');
     }
