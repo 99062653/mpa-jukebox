@@ -131,6 +131,10 @@ footer>div>p {
 	margin-right: 5px;
 }
 
+.td-icon {
+	margin-left: 5px;
+}
+
 .searchbar {
 	position: absolute;
 	width: 250px;

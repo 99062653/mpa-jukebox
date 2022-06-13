@@ -60,5 +60,17 @@ class EntryController extends Controller
         return redirect('/');
     }
     //MISC
+    public function changePassword(Request $req)
+    {
+        $user = User::where('id', session('user_id'))->first();
+        if (Hash::check($req->oldpass, $user->password)) {
+            $Hashedpassword = Hash::make($req->newpass);
+            $user->password = $Hashedpassword;
+            $user->save();
 
+            return redirect('/user');
+        } else {
+            return view('pages/entry', ['issue' => 'Dit is niet het juiste password']);
+        }
+    }
 }

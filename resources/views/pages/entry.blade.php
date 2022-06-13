@@ -42,6 +42,25 @@
                     </form>
                 </div>
                 @break
+                
+            @case('user/edit/password')
+                <div id="form">
+                    <form action="/user/edit/password" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="oldpass">Huidig Password</label>
+                            <input type="password" name="oldpass" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="newpas">Nieuw Password</label>
+                            <input type="password" name="newpass" class="form-control" />
+                        </div>
+                        <span class="error">{{ $issue ?? '' }}</span>
+                        <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
+                        <input type="submit" class="link" value="Update" />
+                    </form>
+                </div>
+                @break
         @endswitch
     </div>
 

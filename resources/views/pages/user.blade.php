@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <td class="td-name">Wachtwoord</td>
-                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ $password }}</a></td>
+                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ $password }}</a><a class="hidden-link" href="/user/edit/password"><i class="bi bi-pencil-square td-icon"></i></a></td>
             </tr>
             <tr>
                 <td class="td-name">Datum gemaakt</td>

@@ -25,6 +25,7 @@ Route::view('/', 'home');
 
 Route::view('/user/login', 'pages/entry');
 Route::view('/user/register', 'pages/entry');
+Route::view('/user/edit/password', 'pages/entry');
 
 Route::view('/playlist', 'pages/playlist');
 Route::view('/playlist/create', 'pages/playlist');
@@ -51,6 +52,8 @@ Route::controller(EntryController::class)->group(function () {
     Route::post('/user/login', [EntryController::class, 'login']);
     Route::post('/user/register', [EntryController::class, 'register']);
     Route::get('/user/logout', [EntryController::class, 'logout']);
+
+    Route::post('/user/edit/password', [EntryController::class, 'changePassword']);
 });
 
 Route::controller(PlaylistController::class)->group(function () {
@@ -59,7 +62,6 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
 
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'edit']);
 });
 
 Route::controller(SongController::class)->group(function () {

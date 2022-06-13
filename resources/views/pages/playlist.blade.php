@@ -9,7 +9,7 @@
                 @break
 
             @case('playlist/edit')
-
+                    
                 @break
 
             @case('playlist/create')
@@ -32,7 +32,7 @@
                 @break
             @default
                 @include("layout/nav")
-                <h1 style="color: {{ $rgb_color }}">{{ $name }} <a class="hidden-link" href="/userplaylist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a></h1>
+                <h1 style="color: {{ $rgb_color }}">{{ $name }} <a class="hidden-link" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a></h1>
         @endswitch
     </div>
 

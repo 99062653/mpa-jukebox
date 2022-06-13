@@ -28,11 +28,7 @@ class PlaylistController extends Controller
 
     public function edit(Request $req, $id)
     {
-        if ($req === null) {
-            $data = session('playlists')[$id -1]; // sessions tellen anders op dan mijn id systeem
 
-            return view('pages/playlist', $data);
-        }
     }
 
     public function delete(Request $req)
