@@ -1,5 +1,6 @@
 @php
 use App\Models\Genre;
+use App\Models\Playlist;
 @endphp
 
 @include("layout/header")
@@ -20,8 +21,7 @@ use App\Models\Genre;
             </div> --}}
         </div>
         <div id="content-mid">
-            <div id="content-mid-genres">
-                <h2>Interessante Genres <span class="span-link"><a class="hidden-link" href="/genres">Alle</a></span></h2>
+                <h2 id="h2-genres">Interessante Genres <span class="span-link"><a class="hidden-link" href="/genres">Alle</a></span></h2>
                 <div id="genres">
                     @foreach (Genre::all()->shuffle() as $Genre)
                     @if ($loop->index == 15)
@@ -36,7 +36,21 @@ use App\Models\Genre;
                     </a>
                     @endforeach
                 </div>
-            </div>
+                <h2 id="h2-playlists">Jukebox Playlists<span class="span-link"><a class="hidden-link" href="/playlists">Alle</a></span></h2>
+                <div id="playlists">
+                    @foreach (Playlist::all()->shuffle() as $Playlist)
+                    @if ($loop->index == 15)
+                        @break 
+                    @endif
+                    <a class="hidden-link" href="/playlist/<?= $Playlist->id ?>">
+                        <div class="playlist" style="background-color: {{ $Playlist->rgb_color }}">
+                            <b>
+                                {{ $Playlist->name }}
+                            </b>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
         </div>
         <div id="content-bottom">
 

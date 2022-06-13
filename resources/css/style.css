@@ -73,6 +73,10 @@ footer>div>p {
 
 /* ID'S */
 
+#h2-genres, #h2-playlists {
+	margin-top: 50px;
+}
+
 #content {
 	position: absolute;
 	width: 100vw;
@@ -81,11 +85,6 @@ footer>div>p {
 }
 
 /* #content-mid {} */
-
-#content-mid-genres {
-	position: relative;
-	top: 50px;
-}
 
 #form {
 	position: relative;
@@ -104,7 +103,7 @@ footer>div>p {
 	left: -100px;
 }
 
-#genres {
+#genres, #playlists {
 	display: flex;
 	gap: 10px 20px;
 	overflow-x: scroll;
@@ -183,7 +182,7 @@ footer>div>p {
 	color: rgb(0, 0, 0);
 }
 
-.genre {
+.genre, .playlist {
 	width: 150px;
 	height: 100px;
 	line-height: 100px;

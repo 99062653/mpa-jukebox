@@ -143,7 +143,7 @@ class GenresSeeder extends Seeder
         ]);
 
         DB::table('genres')->insert([
-            "name" => "edm",
+            "name" => "EDM",
             "rgb_color" => "rgb(67, 232, 218)",
             "date_created" => Carbon::now()
         ]);

@@ -6,9 +6,9 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class RoleSeeder extends Seeder
+class RolesSeeder extends Seeder
 {
-    //php artisan db:seed --class=RoleSeeder
+    //php artisan db:seed --class=RolesSeeder
     /**
      * Run the database seeds.
      *
