@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm fixed-top">
 	<div class="container-fluid ">
 		<a class="navbar-brand" href="/">
-			<img src="../img/logo.gif" alt="JukeBox_logo" width="250">
+			<img src="{{ asset('img/logo.gif') }}" alt="JukeBox_logo" width="250">
 		</a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav ms-auto">

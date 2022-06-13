@@ -6,7 +6,6 @@
     <div id="content">
         <h1>Account overview,</h1>
         <h2>Profiel</h2>
-
         <table>
             <tr>
                 <td class="td-name">Naam</td>
@@ -30,11 +29,20 @@
                     <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/playlist/create">maak een playlist</a></b></td>
                 </tr>
             @else
-                <tr>
-                    @foreach (session('playlists') as $playlist)
-                        <td class="td-edit"><b><a href="/playlist/{{ $playlist['id'] }}">{{ $playlist['name'] }}</a></b></td>
+                <div id="playlists">
+                    @foreach (session('playlists') as $Playlist)
+                    @if ($loop->index == 15)
+                        @break 
+                    @endif
+                    <a class="hidden-link" href="/user/playlist/<?= $Playlist['id'] ?>">
+                        <div class="playlist" style="background-color: {{ $Playlist['rgb_color'] }}">
+                            <b>
+                                {{ $Playlist['name'] }}
+                            </b>
+                        </div>
+                    </a>
                     @endforeach
-                </tr>
+                </div>
             @endif
         </table>
     </div>

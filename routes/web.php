@@ -5,6 +5,7 @@ use App\Http\Controllers\EntryController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
+use App\Models\Song;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
 
@@ -56,10 +57,13 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::post('/playlist/create', [PlaylistController::class, 'create']);
     Route::post('/playlist/edit', [PlaylistController::class, 'edit']);
     Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
+
+    Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'edit']);
 });
 
 Route::controller(SongController::class)->group(function () {
-    Route::post('/song/create', [PlaylistController::class, 'create']);
-    Route::post('/song/edit', [PlaylistController::class, 'edit']);
-    Route::get('/song/delete', [PlaylistController::class, 'delete']);
+    Route::post('/song/create', [SongController::class, 'create']);
+    Route::post('/song/edit', [SongController::class, 'edit']);
+    Route::get('/song/delete', [SongController::class, 'delete']);
 });

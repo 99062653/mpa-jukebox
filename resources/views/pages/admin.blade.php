@@ -19,7 +19,7 @@ use App\Models\Genre;
                 <a class="link" href="/admin/genress">Genres</a>
             </div>
             <div style="margin: 0 auto; width: 500px;">
-                <img src="../img/monkeyadmin.gif" alt="nie boos doen" height="500" width="500">
+                <img src="{{ asset('img/monkeyadmin.gif') }}" alt="nie boos doen" height="500" width="500">
             </div>
         @break
 
