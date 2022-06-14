@@ -28,30 +28,31 @@ use App\Models\Genre;
             <div id="users">
                 @foreach (User::all() as $User)
                     <table class="admin-table">
-                            <tr>
-                                <td class="td-name">Id</td>
-                                <td class="td-data">{{ $User->id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Role Id</td>
-                                <td class="td-data">{{ $User->role_id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Naam</td>
-                                <td class="td-data">{{ $User->username }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Wachtwoord</td>
-                                <td class="td-data"><a class="td-password" onclick="alert('Dit is niet het echte wachtwoord, hij is encrypted')">{{ $User->password }}</a></td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Datum Gemaakt</td>
-                                <td class="td-data">{{ $User->date_created }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Verwijderd</td>
-                                <td class="td-data">{{ $User->deleted }}</td>
-                            </tr>
+                        <tr>
+                            <td class="td-name">Id</td>
+                            <td class="td-data">{{ $User->id }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Role Id</td>
+                            <td class="td-data">{{ $User->role_id }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Naam</td>
+                            <td class="td-data">{{ $User->username }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Wachtwoord</td>
+                            <td class="td-data"><a class="td-password"
+                                    onclick="alert('Dit is niet het echte wachtwoord, hij is encrypted')">{{ $User->password }}</a></td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Datum Gemaakt</td>
+                            <td class="td-data">{{ $User->date_created }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Verwijderd</td>
+                            <td class="td-data">{{ $User->deleted }}</td>
+                        </tr>
                     </table>
                 @endforeach
             </div>
@@ -62,42 +63,42 @@ use App\Models\Genre;
             <div id="songs">
                 @foreach (Song::all() as $Song)
                     <table class="admin-table">
-                            <tr>
-                                <td class="td-name">Id</td>
-                                <td class="td-data">{{ $Song->id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Genre Id</td>
-                                <td class="td-data">{{ $Song->genre_id }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Naam</td>
-                                <td class="td-data">{{ $Song->name }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Lengte</td>
-                                <td class="td-data">{{ $Song->length }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Artiest</td>
-                                <td class="td-data">{{ $Song->artist }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Cover Art</td>
-                                <td class="td-data">{{ $Song->cover_art }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Datum Gemaakt</td>
-                                <td class="td-data">{{ $Song->date_created }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Datum Toegevoegd</td>
-                                <td class="td-data">{{ $Song->date_added }}</td>
-                            </tr>
-                            <tr>
-                                <td class="td-name">Verwijderd</td>
-                                <td class="td-data">{{ $Song->deleted }}</td>
-                            </tr>
+                        <tr>
+                            <td class="td-name">Id</td>
+                            <td class="td-data">{{ $Song->id }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Genre Id</td>
+                            <td class="td-data">{{ $Song->genre_id }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Naam</td>
+                            <td class="td-data">{{ $Song->name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name"><i class="bi bi-clock"></i></td>
+                            <td class="td-data">{{ $Song->length }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Artiest</td>
+                            <td class="td-data">{{ $Song->artist }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Cover Art</td>
+                            <td class="td-data">{{ $Song->cover_art }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Datum Gemaakt</td>
+                            <td class="td-data">{{ $Song->date_created }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Datum Toegevoegd</td>
+                            <td class="td-data">{{ $Song->date_added }}</td>
+                        </tr>
+                        <tr>
+                            <td class="td-name">Verwijderd</td>
+                            <td class="td-data">{{ $Song->deleted }}</td>
+                        </tr>
                     </table>
                 @endforeach
             </div>
@@ -109,26 +110,23 @@ use App\Models\Genre;
                 @foreach (Genre::all() as $Genre)
                     <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
                         <table class="admin-table">
-                                <tr>
-                                    <td class="td-name">Id</td>
-                                    <td class="td-data">{{ $Genre->id }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-name">Naam</td>
-                                    <td class="td-data">{{ $Genre->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-name">Rgb Kleur</td>
-                                    <td class="td-data" style="color: {{ $Genre->rgb_color }}">{{ $Genre->rgb_color }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-name">Datum Gemaakt</td>
-                                    <td class="td-data">{{ $Genre->date_created }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="td-name">Verwijderd</td>
-                                    <td class="td-data">{{ $Genre->deleted }}</td>
-                                </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Naam</th>
+                                <th>RGB Kleur</th>
+                                <th>Datum Gemaakt</th>
+                                <th>Verwijderd</th>
+                            </tr>
+                            <tr>
+                                <td class="td-data">{{ $Genre->id }}</td>
+                                <td class="td-data">{{ $Genre->name }}</td>
+                                <td class="td-data" style="color: {{ $Genre->rgb_color }}">{{ $Genre->rgb_color }}</td>
+                                <td class="td-data">{{ $Genre->date_created }}</td>
+                                <td class="td-data">{{ $Genre->deleted }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
                         </table>
                     </a>
                 @endforeach

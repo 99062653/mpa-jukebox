@@ -35,7 +35,6 @@ use App\Models\Genre;
                         </div>
                     </form>
                 </div>
-                <h2>Songs</h2>
                 <div id="songs">
                     {{-- foreach hier --}}
                 </div>

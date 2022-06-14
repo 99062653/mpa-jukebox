@@ -20,13 +20,26 @@ class PlaylistController extends Controller
     {
         for ($i = 0; $i < count(session('playlists')); $i++) {
             if (session('playlists')[$i]['id'] == $id) {
-
                $data = session('playlists')[$i];
             }
         }
-        // return view('pages/playlist', $data);
-        //session()->put('playlists.1.name', 'oke');    
-        return dd(session('playlists'));
+        return view('pages/playlist', $data);
+    }
+
+    public function editSessionPlaylist($id)
+    {
+        // session()->push('playlists.' . $id - 1 . '.songs', ['name' => 'obama']);
+        //session()->put('playlists.1.name', 'oke');  
+    }
+
+    public function deleteSessionPlaylist($id)
+    {
+
+    }
+
+    public function addToSessionPlaylist($id, $song)
+    {
+
     }
 
     public function createSessionPlaylist(Request $req)
@@ -38,14 +51,5 @@ class PlaylistController extends Controller
         session()->push('playlists', ['id' => $id,'name' => $req->name, 'rgb_color' => $req->color, 'songs' => []]);
 
         return redirect('/user');
-    }
-
-    public function edit(Request $req, $id)
-    {
-
-    }
-
-    public function delete(Request $req)
-    {
     }
 }

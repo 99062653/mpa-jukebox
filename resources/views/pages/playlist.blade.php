@@ -37,9 +37,28 @@
                         <a class="hidden-link" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a>
                     @endif
                 </h1>
-                <h2>
-                    {{ $id }}
-                </h2>
+                <div id="songs">
+                    <table>
+                        <tr>
+                            <th><i class="bi bi-image"></i></th>
+                            <th>Naam</th>
+                            <th>Artiest</th>
+                            <th>Genre</th>
+                            <th><i class="bi bi-clock"></i></th>
+                            <th>Datum Toegevoegd</th>
+                        </tr>
+                        @foreach (session('playlists')[$id - 1]['songs'] as $Song)
+                                <tr>
+                                    <td><img class="song-art" src="{{ asset('img/logo.gif') }}" width="50" height="50" alt="test"></td>
+                                    <td>{{ $Song['name'] }}</td>
+                                    <td>artiest</td>
+                                    <td>Genre</td>
+                                    <td>4:00</td>
+                                    <td>26-04-1942</td>
+                                </tr>
+                        @endforeach
+                    </table>
+                </div>
         @endswitch
     </div>
 
