@@ -3,7 +3,7 @@
 <body>
 
     <div id="content">
-        @switch(request()->route()->uri)
+        @switch(request()->route()->uri())
             @case('playlist')
 
                 @break
@@ -32,7 +32,14 @@
                 @break
             @default
                 @include("layout/nav")
-                <h1 style="color: {{ $rgb_color }}">{{ $name }} <a class="hidden-link" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a></h1>
+                <h1 style="color: {{ $rgb_color }}">{{ $name }}
+                    @if (str_contains(url()->current(), 'user')) 
+                        <a class="hidden-link" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a>
+                    @endif
+                </h1>
+                <h2>
+                    {{ $id }}
+                </h2>
         @endswitch
     </div>
 

@@ -8,7 +8,7 @@ use App\Models\Genre;
     @include("layout/nav")
 
     <div id="content">
-        @switch(request()->route()->uri)
+        @switch(request()->route()->uri())
             @case('genres')
                 <div id="genres-full">
                     @foreach (Genre::all()->shuffle() as $Genre)

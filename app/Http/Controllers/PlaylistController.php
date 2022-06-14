@@ -5,17 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Playlist;
 
 class PlaylistController extends Controller
 {
-    public function getSessionPlaylist($id)
+    public function getEloquentPlaylist($id)
     {
-        $data = session('playlists')[$id -1]; // sessions tellen anders op dan mijn id systeem
+        $data = Playlist::where('id', '=', $id)->first();
 
         return view('pages/playlist', $data);
     }
 
-    public function create(Request $req)
+    public function getSessionPlaylist($id)
+    {
+        for ($i = 0; $i < count(session('playlists')); $i++) {
+            if (session('playlists')[$i]['id'] == $id) {
+
+               $data = session('playlists')[$i];
+            }
+        }
+        // return view('pages/playlist', $data);
+        //session()->put('playlists.1.name', 'oke');    
+        return dd(session('playlists'));
+    }
+
+    public function createSessionPlaylist(Request $req)
     {
         $id = 1;
         if (session('playlists')) {

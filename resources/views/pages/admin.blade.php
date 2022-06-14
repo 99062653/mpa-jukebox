@@ -10,7 +10,7 @@ use App\Models\Genre;
     @include("layout/nav")
 
     <div id="content">
-        @switch(request()->route()->uri)
+        @switch(request()->route()->uri())
         @case('admin/panel')
            <h1>ADMIN PANEL</h1>
             <div id="buttons">

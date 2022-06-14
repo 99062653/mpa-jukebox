@@ -2,7 +2,7 @@
 
 <body>
     <div id="content">
-        @switch(request()->route()->uri)
+        @switch(request()->route()->uri())
             @case('song/create')
                 <div id="form">
                     <form action="#" method="POST">

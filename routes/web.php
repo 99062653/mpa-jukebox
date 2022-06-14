@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 // ~~ VIEW ~~
 Route::view('/', 'home');
 
-Route::view('/user/login', 'pages/entry');
-Route::view('/user/register', 'pages/entry');
-Route::view('/user/edit/password', 'pages/entry');
+Route::view('/user/login', 'pages/user');
+Route::view('/user/register', 'pages/user');
+Route::view('/user/edit/password', 'pages/user');
 
 Route::view('/playlist', 'pages/playlist');
 Route::view('/playlist/create', 'pages/playlist');
@@ -48,20 +48,21 @@ Route::get('/user', [UserController::class, 'getSessionUser']);
 Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
 
 // ~~ GROUP ~~
-Route::controller(EntryController::class)->group(function () {
-    Route::post('/user/login', [EntryController::class, 'login']);
-    Route::post('/user/register', [EntryController::class, 'register']);
-    Route::get('/user/logout', [EntryController::class, 'logout']);
+Route::controller(UserController::class)->group(function () {
+    Route::post('/user/login', [UserController::class, 'login']);
+    Route::post('/user/register', [UserController::class, 'register']);
+    Route::get('/user/logout', [UserController::class, 'logout']);
 
-    Route::post('/user/edit/password', [EntryController::class, 'changePassword']);
+    Route::post('/user/edit/password', [UserController::class, 'changePassword']);
 });
 
 Route::controller(PlaylistController::class)->group(function () {
-    Route::post('/playlist/create', [PlaylistController::class, 'create']);
+    Route::post('/playlist/create', [PlaylistController::class, 'createSessionPlaylist']);
     Route::post('/playlist/edit', [PlaylistController::class, 'edit']);
     Route::get('/playlist/delete', [PlaylistController::class, 'delete']);
 
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+    Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
 });
 
 Route::controller(SongController::class)->group(function () {
