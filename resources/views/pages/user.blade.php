@@ -1,3 +1,8 @@
+@php
+use App\Models\Role;
+$Role = Role::all()->where('id', $role_id)->first();
+@endphp
+
 @include("layout/header")
 
 <body>
@@ -15,12 +20,19 @@
                         <td class="td-data">{{ $username }}</td>
                     </tr>
                     <tr>
+                        <td class="td-name">Rol</td>
+                        <td class="td-data">{{ $Role->name }}</td>
+                    </tr>
+                    <tr>
                         <td class="td-name">Wachtwoord</td>
                         <td class="td-data"><a class="td-password" onclick="alert('Dit is niet je echte wachtwoord, hij is encrypted')">{{ $password }}</a><a class="hidden-link" href="/user/edit/password"><i class="bi bi-pencil-square td-icon"></i></a></td>
                     </tr>
                     <tr>
                         <td class="td-name">Datum gemaakt</td>
                         <td class="td-data">{{ $date_created }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
                     </tr>
                 </table>
         

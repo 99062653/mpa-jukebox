@@ -87,7 +87,7 @@ class UserController extends Controller
         if (session('user_id')) {
             $user = User::where('id', session('user_id'))->first();
 
-            return view('pages/user', ['username' => $user->username, 'password' => $user->password, 'date_created' => $user->date_created]);
+            return view('pages/user', ['username' => $user->username, 'role_id' => $user->role_id, 'password' => $user->password, 'date_created' => $user->date_created]);
         }
         return view('/');
     }
