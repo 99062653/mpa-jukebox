@@ -1,6 +1,8 @@
 @php
 use App\Models\Role;
-$Role = Role::all()->where('id', $role_id)->first();
+if (session('user_id')) {
+    $Role = Role::all()->where('id', $role_id)->first();
+}
 @endphp
 
 @include("layout/header")

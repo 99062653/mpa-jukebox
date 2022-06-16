@@ -18,7 +18,7 @@ use App\Models\Log;
                 <div id="buttons">
                     <a class="link" href="/admin/users">Users</a>
                     <a class="link" href="/admin/songs">Songs</a>
-                    <a class="link" href="/admin/genress">Genres</a>
+                    <a class="link" href="/admin/genres">Genres</a>
                     <a class="link" href="/admin/logs">Logs</a>
                 </div>
                 <div style="margin: 0 auto; width: 500px;">
@@ -110,9 +110,9 @@ use App\Models\Log;
                 </div>
                 @break
 
-            @case('admin/genress')
+            @case('admin/genres')
                 <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GENRES <a class="hidden-link" href="/genre/create">+</a></h1>
-                <div id="genress">
+                <div id="genres-admin">
                     @foreach (Genre::all() as $Genre)
                         <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
                             <table class="admin-table">
