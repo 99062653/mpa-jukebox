@@ -52,7 +52,7 @@ class UserController extends Controller
             $user = User::create(['username' => $req->username, 'password' => $Hashedpassword, 'role_id' => 1, 'date_created' => Carbon::now()]);
 
             session()->put('user_id', $user->id);
-            LogController::logAction("made a new account");
+            LogController::logAction("registered");
             return redirect('/');
         } else {
             return view('pages/user', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);

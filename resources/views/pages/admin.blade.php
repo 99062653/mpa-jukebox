@@ -2,6 +2,7 @@
 use App\Models\User;
 use App\Models\Song;
 use App\Models\Genre;
+use App\Models\Log;
 @endphp
 
 @include("layout/header")
@@ -18,11 +19,12 @@ use App\Models\Genre;
                     <a class="link" href="/admin/users">Users</a>
                     <a class="link" href="/admin/songs">Songs</a>
                     <a class="link" href="/admin/genress">Genres</a>
+                    <a class="link" href="/admin/logs">Logs</a>
                 </div>
                 <div style="margin: 0 auto; width: 500px;">
                     <img src="{{ asset('img/monkeyadmin.gif') }}" alt="nie boos doen" height="500" width="500">
                 </div>
-            @break
+                @break
 
             @case('admin/users')
                 <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GEBRUIKERS</h1>
@@ -57,7 +59,7 @@ use App\Models\Genre;
                         </table>
                     @endforeach
                 </div>
-            @break
+                @break
 
             @case('admin/songs')
                 <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > LIEDJES <a class="hidden-link" href="/song/create">+</a></h1>
@@ -106,7 +108,7 @@ use App\Models\Genre;
                         </table>
                     @endforeach
                 </div>
-            @break
+                @break
 
             @case('admin/genress')
                 <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > GENRES <a class="hidden-link" href="/genre/create">+</a></h1>
@@ -135,7 +137,32 @@ use App\Models\Genre;
                         </a>
                     @endforeach
                 </div>
-            @break
+                @break
+            @case('admin/logs')
+                <h1><a class="hidden-link"  href="/admin/panel">ADMIN PANEL</a> > LOGS</h1>
+                <div id="logs">
+                    @foreach (Log::all() as $Log)
+                    @php
+                        $User = User::where('id', $Log->user_id)->first();
+                    @endphp
+                        <table class="admin-table">
+                            <tr>
+                                <th>User</th>
+                                <th>Actie</th>
+                                <th>Timestamp</th>
+                            </tr>
+                            <tr>
+                                <td>{{ $Log->user_id }} / {{ $User->username }}</td>
+                                <td>{{ $Log->action }}</td>
+                                <td>{{ $Log->timestamp }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </table>
+                    @endforeach
+                </div>
+                @break
 
             @endswitch
         </div>

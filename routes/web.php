@@ -76,4 +76,5 @@ Route::controller(AdminController::class)->group(function () {
     Route::view('/admin/songs', 'pages/admin');
 
     Route::view('/admin/genress', 'pages/admin');
+    Route::view('/admin/logs', 'pages/admin');
 });
