@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\UserController;
+use App\Models\Playlist;
 use App\Models\Song;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
@@ -36,11 +38,6 @@ Route::view('/song/edit', 'pages/song');
 
 Route::view('/genres', 'pages/genre');
 
-Route::view('/admin/panel', 'pages/admin');
-Route::view('/admin/users', 'pages/admin');
-Route::view('/admin/songs', 'pages/admin');
-Route::view('/admin/genress', 'pages/admin');
-
 // ~~ GET ~~
 
 Route::get('/user', [UserController::class, 'getSessionUser']);
@@ -63,10 +60,20 @@ Route::controller(PlaylistController::class)->group(function () {
 
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
     Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
+
+    Route::get('/user/playlist/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromSessionPlaylist']);
 });
 
 Route::controller(SongController::class)->group(function () {
-    Route::post('/song/create', [SongController::class, 'create']);
+    Route::post('/song/create', [SongController::class, 'createSong']);
     Route::post('/song/edit', [SongController::class, 'edit']);
     Route::get('/song/delete', [SongController::class, 'delete']);
+});
+
+Route::controller(AdminController::class)->group(function () {
+    Route::view('/admin/panel', 'pages/admin');
+    Route::view('/admin/users', 'pages/admin');
+    Route::view('/admin/songs', 'pages/admin');
+
+    Route::view('/admin/genress', 'pages/admin');
 });

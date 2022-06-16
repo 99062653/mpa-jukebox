@@ -9,6 +9,7 @@ use App\Models\Playlist;
 
 class PlaylistController extends Controller
 {
+    // --DATABASE--
     public function getEloquentPlaylist($id)
     {
         $data = Playlist::where('id', '=', $id)->first();
@@ -16,11 +17,22 @@ class PlaylistController extends Controller
         return view('pages/playlist', $data);
     }
 
+    // --SESSION--
     public function getSessionPlaylist($id)
     {
         for ($i = 0; $i < count(session('playlists')); $i++) {
             if (session('playlists')[$i]['id'] == $id) {
                $data = session('playlists')[$i];
+
+            //    session()->push('playlists.' . $id - 1 . '.songs', [
+            //     'cover_art' => 'https://i.scdn.co/image/ab67616d00004851b9dbbd9d2f7215c1e52b4dd4',
+            //     'name' => 'New Noise',
+            //     'artist' => 'Refused',
+            //     'genre' => 'Rock',
+            //     'length' => '3:51',
+            //     'date_added' => Carbon::now()
+            //    ]);
+
             }
         }
         return view('pages/playlist', $data);
@@ -30,6 +42,13 @@ class PlaylistController extends Controller
     {
         // session()->push('playlists.' . $id - 1 . '.songs', ['name' => 'obama']);
         //session()->put('playlists.1.name', 'oke');  
+    }
+
+    public function removeFromSessionPlaylist($id, $songId)
+    {
+        session()->pull('playlists.' . $id - 1 . '.songs.' . $songId);
+
+        return redirect('/user/playlist/' . $id);
     }
 
     public function deleteSessionPlaylist($id)

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('genre_id');
             $table->text("name");
-            $table->double("length");
+            $table->text("length");
             $table->text("artist");
             $table->text("cover_art");
             $table->date("date_created");

@@ -46,17 +46,24 @@
                             <th>Genre</th>
                             <th><i class="bi bi-clock"></i></th>
                             <th>Datum Toegevoegd</th>
+                            <th></th>
                         </tr>
-                        @foreach (session('playlists')[$id - 1]['songs'] as $Song)
-                                <tr>
-                                    <td><img class="song-art" src="{{ asset('img/logo.gif') }}" width="50" height="50" alt="test"></td>
-                                    <td>{{ $Song['name'] }}</td>
-                                    <td>artiest</td>
-                                    <td>Genre</td>
-                                    <td>4:00</td>
-                                    <td>26-04-1942</td>
-                                </tr>
-                        @endforeach
+                        @if (str_contains(url()->current(), 'user')) 
+                            @foreach (session('playlists')[$id - 1]['songs'] as $Song)
+                                    <tr>
+                                        <td><img class="song-art" src="{{ $Song['cover_art'] }}" width="50" height="50" alt="cover-art"></td>
+                                        <td>{{ $Song['name'] }}</td>
+                                        <td>{{ $Song['artist'] }}</td>
+                                        <td>{{ $Song['genre'] }}</td>
+                                        <td>{{ $Song['length'] }}</td>
+                                        <td>{{ $Song['date_added'] }}</td>
+                                        <td><a class="hidden-link" href="/user/playlist/{{ $id }}/remove/{{ $loop->index }}"><i class="bi bi-eraser"></i></a></td>
+                                    </tr>
+                            @endforeach
+
+                        @else
+
+                        @endif
                     </table>
                 </div>
         @endswitch

@@ -7,7 +7,7 @@
             @include("layout/nav")
         
             <div id="content">
-                <h1>Account overview,</h1>
+                <h1>Account overview</h1>
                 <h2>Profiel</h2>
                 <table>
                     <tr>

@@ -1,5 +1,6 @@
 @php
 use App\Models\Genre;
+use App\Models\Song;
 @endphp
 
 @include("layout/header")
@@ -36,7 +37,26 @@ use App\Models\Genre;
                     </form>
                 </div>
                 <div id="songs">
-                    {{-- foreach hier --}}
+                    <table>
+                        <tr>
+                            <th><i class="bi bi-image"></i></th>
+                            <th>Naam</th>
+                            <th>Artiest</th>
+                            <th><i class="bi bi-clock"></i></th>
+                            <th>Datum Gemaakt</th>
+                            <th></th>
+                        </tr>
+                            @foreach (Song::all()->where('genre_id', $id) as $Song)
+                                <tr>
+                                    <td><img class="song-art" src="{{ $Song->cover_art }}" width="50" height="50" alt="cover-art"></td>
+                                    <td>{{ $Song->name }}</td>
+                                    <td>{{ $Song->artist }}</td>
+                                    <td>{{ $Song->length }}</td>
+                                    <td>{{ $Song->date_created }}</td>
+                                    <td><i class="bi bi-three-dots"></i></td>
+                                </tr>
+                            @endforeach
+                    </table>
                 </div>
         @endswitch
     </div>
