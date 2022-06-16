@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LogController;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,7 @@ class UserController extends Controller
                 }
 
                 session()->put('user_id', $user->id);
+                LogController::logAction("logged in");
                 return redirect('/');
             } else {
                 return view('pages/user', ['issue' => 'Dit wachtwoord is niet juist', 'username' => $req->username]);
@@ -50,6 +52,7 @@ class UserController extends Controller
             $user = User::create(['username' => $req->username, 'password' => $Hashedpassword, 'role_id' => 1, 'date_created' => Carbon::now()]);
 
             session()->put('user_id', $user->id);
+            LogController::logAction("made a new account");
             return redirect('/');
         } else {
             return view('pages/user', ['issue' => 'Dit account bestaat al', 'username' => $req->username]);
@@ -58,6 +61,7 @@ class UserController extends Controller
 
     public function logout()
     {
+        LogController::logAction("logged out");
         session()->flush(); //vergeet alles
 
         return redirect('/');
@@ -71,6 +75,7 @@ class UserController extends Controller
             $user->password = $Hashedpassword;
             $user->save();
 
+            LogController::logAction("changed password");
             return redirect('/user');
         } else {
             return view('pages/user', ['issue' => 'Dit is niet het juiste password']);
