@@ -1,3 +1,16 @@
+@php
+use App\Models\User;
+$User = User::where('id', session('user_id'))->first();
+$Length = 0;
+
+if (session('playlists')) {
+    foreach (session('playlists')[$id - 1]['songs'] as $Song) {
+        $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
+    }
+}
+
+@endphp
+
 @include("layout/header")
 
 <body>
@@ -32,10 +45,14 @@
                 @break
             @default
                 @include("layout/nav")
-                <h1 style="color: {{ $rgb_color }}">{{ $name }}
-                    @if (str_contains(url()->current(), 'user')) 
-                        <a class="hidden-link" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-square"></i></a>
-                    @endif
+                <h1 style="color: {{ $rgb_color }}; font-size: 50px;">{{ $name }}</h1>
+                <h1 class="playlist-description">
+                    <p>
+                        <a class="hidden-link" href="/user">{{ $User->username }}</a>
+                        -
+                        {{ count(session('playlists')[$id - 1]['songs']) }} Songs,
+                        {{ $Length }} Minuten
+                    </p>
                 </h1>
                 <div id="songs">
                     <table>
