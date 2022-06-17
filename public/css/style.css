@@ -120,6 +120,19 @@ footer>div>p {
 	margin-bottom: 50px;
 }
 
+#playlist-name, #playlist-dropdown {
+	display: inline;
+}
+
+#playlist-dropdown {
+	position: relative;
+	bottom: 10px;
+}
+
+#playlist-dropdown > a {
+	padding: 5px;
+}
+
 /* CLASSES */
 
 .dropdown-item:focus {
@@ -168,7 +181,8 @@ footer>div>p {
 
 .link,
 .searchbar-link,
-.nav-link {
+.nav-link,
+.playlist-link {
 	text-decoration: none;
 	color: rgb(255, 255, 255);
 	background-color: rgb(255, 24, 179);
@@ -189,7 +203,8 @@ footer>div>p {
 
 .link:hover,
 .searchbar-link:hover,
-.nav-link:hover {
+.nav-link:hover,
+.playlist-link:hover {
 	color: rgb(0, 0, 0);
 }
 

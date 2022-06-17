@@ -48,16 +48,18 @@ if (session('user_id')) {
                     @else
                         <div id="playlists">
                             @foreach (session('playlists') as $Playlist)
-                            @if ($loop->index == 15)
-                                @break 
-                            @endif
-                            <a class="hidden-link" href="/user/playlist/<?= $Playlist['id'] ?>">
+                            @if ($Playlist['deleted'] == false)
+                                <a class="hidden-link" href="/user/playlist/<?= $Playlist['id'] ?>">
                                 <div class="playlist" style="background-color: {{ $Playlist['rgb_color'] }}">
-                                    <b>
-                                        {{ $Playlist['name'] }}
-                                    </b>
-                                </div>
-                            </a>
+                                        <b>
+                                            {{ $Playlist['name'] }}
+                                            @if ($Playlist['saved'])
+                                                <i class="bi bi-check"></i>
+                                            @endif
+                                        </b> 
+                                    </div>
+                                </a>
+                            @endif
                             @endforeach
                         </div>
                     @endif

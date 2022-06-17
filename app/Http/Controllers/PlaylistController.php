@@ -53,7 +53,9 @@ class PlaylistController extends Controller
 
     public function deleteSessionPlaylist($id)
     {
+        session()->put('playlists.' . $id - 1 . '.deleted', true);
 
+        return redirect('/user');
     }
 
     public function addToSessionPlaylist($id, $song)
@@ -67,8 +69,18 @@ class PlaylistController extends Controller
         if (session('playlists')) {
             $id = count(session('playlists')) + 1;
         }
-        session()->push('playlists', ['id' => $id,'name' => $req->name, 'rgb_color' => $req->color, 'songs' => []]);
+        session()->push('playlists', ['id' => $id,'name' => $req->name, 'rgb_color' => $req->color, 'songs' => [], 'saved' => false, 'deleted' => false]);
 
+        LogController::logAction('created a playlist');
         return redirect('/user');
+    }
+
+    public static function loadSessionPlaylists()
+    {
+        $id = 1;
+        foreach (Playlist::all()->where('user_id', '=', session('user_id')) as $Playlist) {
+            session()->push('playlists', ['id' => $id,'name' => $Playlist->name, 'rgb_color' => $Playlist->rgb_color, 'songs' => [], 'saved' => false]);
+            $id++;
+        }
     }
 }

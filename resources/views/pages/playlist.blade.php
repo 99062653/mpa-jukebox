@@ -3,7 +3,7 @@ use App\Models\User;
 $User = User::where('id', session('user_id'))->first();
 $Length = 0;
 
-if (session('playlists')) {
+if (session('playlists') && isset($id)) {
     foreach (session('playlists')[$id - 1]['songs'] as $Song) {
         $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
     }
@@ -43,46 +43,60 @@ if (session('playlists')) {
                     </form>
                 </div>
                 @break
+
             @default
                 @include("layout/nav")
-                <h1 style="color: {{ $rgb_color }}; font-size: 50px;">{{ $name }}</h1>
-                <h1 class="playlist-description">
-                    <p>
-                        <a class="hidden-link" href="/user">{{ $User->username }}</a>
-                        -
-                        {{ count(session('playlists')[$id - 1]['songs']) }} Songs,
-                        {{ $Length }} Minuten
-                    </p>
-                </h1>
-                <div id="songs">
-                    <table>
-                        <tr>
-                            <th><i class="bi bi-image"></i></th>
-                            <th>Naam</th>
-                            <th>Artiest</th>
-                            <th>Genre</th>
-                            <th><i class="bi bi-clock"></i></th>
-                            <th>Datum Toegevoegd</th>
-                            <th></th>
-                        </tr>
-                        @if (str_contains(url()->current(), 'user')) 
-                            @foreach (session('playlists')[$id - 1]['songs'] as $Song)
-                                    <tr>
-                                        <td><img class="song-art" src="{{ $Song['cover_art'] }}" width="50" height="50" alt="cover-art"></td>
-                                        <td>{{ $Song['name'] }}</td>
-                                        <td>{{ $Song['artist'] }}</td>
-                                        <td>{{ $Song['genre'] }}</td>
-                                        <td>{{ $Song['length'] }}</td>
-                                        <td>{{ $Song['date_added'] }}</td>
-                                        <td><a class="hidden-link" href="/user/playlist/{{ $id }}/remove/{{ $loop->index }}"><i class="bi bi-eraser"></i></a></td>
-                                    </tr>
-                            @endforeach
+                    <div id="content-top">
+                        <h1 id="playlist-name" style="color: {{ $rgb_color }}; font-size: 50px;">{{ $name }}</h1>
+                        <div id="playlist-dropdown" class="dropdown">
+                            <a class="playlist-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots"></i>
+                            </a>
+                        
+                            <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-fill dropdown-icon"></i>Edit</a></li>
+                                <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/delete"><i class="bi bi-eraser-fill dropdown-icon"></i>Delete</a></li>
+                                <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/save"><i class="bi bi-save-fill dropdown-icon"></i>Save</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <h1 class="playlist-description">
+                        <p>
+                            <a class="hidden-link" href="/user">{{ $User->username }}</a>
+                            -
+                            {{ count(session('playlists')[$id - 1]['songs']) }} Songs,
+                            {{ $Length }} Minuten
+                        </p>
+                    </h1>
+                    <div id="songs">
+                        <table>
+                            <tr>
+                                <th><i class="bi bi-image"></i></th>
+                                <th>Naam</th>
+                                <th>Artiest</th>
+                                <th>Genre</th>
+                                <th><i class="bi bi-clock"></i></th>
+                                <th>Datum Toegevoegd</th>
+                                <th></th>
+                            </tr>
+                            @if (str_contains(url()->current(), 'user')) 
+                                @foreach (session('playlists')[$id - 1]['songs'] as $Song)
+                                        <tr>
+                                            <td><img class="song-art" src="{{ $Song['cover_art'] }}" width="50" height="50" alt="cover-art"></td>
+                                            <td>{{ $Song['name'] }}</td>
+                                            <td>{{ $Song['artist'] }}</td>
+                                            <td>{{ $Song['genre'] }}</td>
+                                            <td>{{ $Song['length'] }}</td>
+                                            <td>{{ $Song['date_added'] }}</td>
+                                            <td><a class="hidden-link" href="/user/playlist/{{ $id }}/remove/{{ $loop->index }}"><i class="bi bi-eraser"></i></a></td>
+                                        </tr>
+                                @endforeach
 
-                        @else
+                            @else
 
-                        @endif
-                    </table>
-                </div>
+                            @endif
+                        </table>
+                    </div>
         @endswitch
     </div>
 
