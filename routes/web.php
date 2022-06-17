@@ -56,6 +56,8 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(PlaylistController::class)->group(function () {
     Route::post('/playlist/create', [PlaylistController::class, 'createSessionPlaylist']);
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'editSessionPlaylist']);
+    Route::get('/user/playlist/{playlistId}/save', [PlaylistController::class, 'saveSessionPlaylist']);
     Route::get('/user/playlist/{playlistId}/delete', [PlaylistController::class, 'deleteSessionPlaylist']);
 
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);

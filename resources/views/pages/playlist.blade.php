@@ -52,11 +52,14 @@ if (session('playlists') && isset($id)) {
                             <a class="playlist-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots"></i>
                             </a>
-                        
                             <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-fill dropdown-icon"></i>Edit</a></li>
+                                @if (!$saved)
+                                    <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/save"><i class="bi bi-save-fill dropdown-icon"></i>Save</a></li>
+                                @else
+                                    <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/unsave"><i class="bi bi-save-fill dropdown-icon"></i>Unsave</a></li> 
+                                @endif
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/delete"><i class="bi bi-eraser-fill dropdown-icon"></i>Delete</a></li>
-                                <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/save"><i class="bi bi-save-fill dropdown-icon"></i>Save</a></li>
                             </ul>
                         </div>
                     </div>

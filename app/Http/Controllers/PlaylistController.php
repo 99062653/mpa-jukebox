@@ -6,9 +6,19 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
+use App\Models\Song;
 
 class PlaylistController extends Controller
 {
+    public static function getIndex($id)
+    {
+        for ($i = 0; $i < count(session('playlists')); $i++) {
+            if (session('playlists')[$i]['id'] == $id) {
+               return $i;
+            }
+        }
+    }
+
     // --DATABASE--
     public function getEloquentPlaylist($id)
     {
@@ -20,22 +30,25 @@ class PlaylistController extends Controller
     // --SESSION--
     public function getSessionPlaylist($id)
     {
-        for ($i = 0; $i < count(session('playlists')); $i++) {
-            if (session('playlists')[$i]['id'] == $id) {
-               $data = session('playlists')[$i];
+        $data = session('playlists')[PlaylistController::getIndex($id)];
 
-            //    session()->push('playlists.' . $id - 1 . '.songs', [
-            //     'cover_art' => 'https://i.scdn.co/image/ab67616d00004851b9dbbd9d2f7215c1e52b4dd4',
-            //     'name' => 'New Noise',
-            //     'artist' => 'Refused',
-            //     'genre' => 'Rock',
-            //     'length' => '3:51',
-            //     'date_added' => Carbon::now()
-            //    ]);
+        //    session()->push('playlists.' . $id - 1 . '.songs', [
+        //     'cover_art' => 'https://i.scdn.co/image/ab67616d00004851b9dbbd9d2f7215c1e52b4dd4',
+        //     'name' => 'New Noise',
+        //     'artist' => 'Refused',
+        //     'genre' => 'Rock',
+        //     'length' => '3:51',
+        //     'date_added' => Carbon::now()
+        //    ]);
 
-            }
-        }
         return view('pages/playlist', $data);
+    }
+
+    public function saveSessionPlaylist($id)
+    {
+        session()->put('playlists.' . [PlaylistController::getIndex($id)] . '.saved', true);
+
+        return redirect('/user/playlist/' . $id);
     }
 
     public function editSessionPlaylist($id)
@@ -46,19 +59,19 @@ class PlaylistController extends Controller
 
     public function removeFromSessionPlaylist($id, $songId)
     {
-        session()->pull('playlists.' . $id - 1 . '.songs.' . $songId);
+        session()->pull('playlists.' . [PlaylistController::getIndex($id)] . '.songs.' . $songId);
 
         return redirect('/user/playlist/' . $id);
     }
 
     public function deleteSessionPlaylist($id)
     {
-        session()->put('playlists.' . $id - 1 . '.deleted', true);
+        session()->put('playlists.' . [PlaylistController::getIndex($id)] . '.deleted', true);
 
         return redirect('/user');
     }
 
-    public function addToSessionPlaylist($id, $song)
+    public function addToSessionPlaylist($id, Song $Song)
     {
 
     }
