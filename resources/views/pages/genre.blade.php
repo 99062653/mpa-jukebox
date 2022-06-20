@@ -63,7 +63,7 @@ use App\Models\Song;
                                                 @if (session('playlists'))
                                                     @foreach (session('playlists') as $Playlist)
                                                         @if ($Playlist['deleted'] == false)
-                                                            <li><a class="dropdown-item" href="/user" style="color: {{ $Playlist['rgb_color'] }}"><i class="bi bi-folder-plus dropdown-icon"></i>{{ $Playlist['name'] }}</a></li>
+                                                            <li><a class="dropdown-item" href="/user/playlist/{{ $Playlist['id'] }}/add/{{ $Song->id }}" style="color: {{ $Playlist['rgb_color'] }}"><i class="bi bi-folder-plus dropdown-icon"></i>{{ $Playlist['name'] }}</a></li>
                                                         @endif
                                                     @endforeach
                                                 @else

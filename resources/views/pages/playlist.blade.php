@@ -1,5 +1,6 @@
 @php
 use App\Models\User;
+use App\Models\Genre;
 $User = User::where('id', session('user_id'))->first();
 $Length = 0;
 
@@ -84,11 +85,14 @@ if (session('playlists') && isset($id)) {
                             </tr>
                             @if (str_contains(url()->current(), 'user')) 
                                 @foreach (session('playlists')[$id - 1]['songs'] as $Song)
+                                @php
+                                    $Genre = Genre::where('id', $Song['genre'])->first();
+                                @endphp
                                         <tr>
                                             <td><img class="song-art" src="{{ $Song['cover_art'] }}" width="50" height="50" alt="cover-art"></td>
                                             <td>{{ $Song['name'] }}</td>
                                             <td>{{ $Song['artist'] }}</td>
-                                            <td>{{ $Song['genre'] }}</td>
+                                            <td><a class="hidden-link" href="/genre/{{  $Song['genre'] }}">{{ $Genre->name }}</a></td>
                                             <td>{{ $Song['length'] }}</td>
                                             <td>{{ $Song['date_added'] }}</td>
                                             <td><a class="hidden-link" href="/user/playlist/{{ $id }}/remove/{{ $loop->index }}"><i class="bi bi-eraser"></i></a></td>

@@ -37,7 +37,7 @@ class PlaylistController extends Controller
 
     public function saveSessionPlaylist($id)
     {
-        session()->put('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.saved', true);
+        session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.saved', true);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -50,21 +50,28 @@ class PlaylistController extends Controller
 
     public function addToSessionPlaylist($id, $songId)
     {
-        session()->pull('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.songs.' . $songId);
+        $Song = Song::where('id', '=', $songId)->first();
+        session()->push('playlists.' . PlaylistController::getPlaylistIndex($id) . '.songs', [
+            'name' => $Song->name,
+            'artist' => $Song->artist,
+            'cover_art' => $Song->cover_art,
+            'genre' => $Song->genre_id,
+            'length' => $Song->length,
+            'date_added' => Carbon::now()
+        ]);
 
-        return redirect('/user/playlist/' . $id);
     }
 
     public function removeFromSessionPlaylist($id, $songId)
     {
-        session()->pull('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.songs.' . $songId);
+        session()->pull('playlists.' . PlaylistController::getPlaylistIndex($id) . '.songs.' . $songId);
 
         return redirect('/user/playlist/' . $id);
     }
 
     public function deleteSessionPlaylist($id)
     {
-        session()->put('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.deleted', true);
+        session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.deleted', true);
 
         return redirect('/user');
     }
