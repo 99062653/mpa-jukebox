@@ -10,7 +10,7 @@ use App\Models\Song;
 
 class PlaylistController extends Controller
 {
-    public static function getIndex($id)
+    public static function getPlaylistIndex($id)
     {
         for ($i = 0; $i < count(session('playlists')); $i++) {
             if (session('playlists')[$i]['id'] == $id) {
@@ -30,23 +30,14 @@ class PlaylistController extends Controller
     // --SESSION--
     public function getSessionPlaylist($id)
     {
-        $data = session('playlists')[PlaylistController::getIndex($id)];
-
-        //    session()->push('playlists.' . $id - 1 . '.songs', [
-        //     'cover_art' => 'https://i.scdn.co/image/ab67616d00004851b9dbbd9d2f7215c1e52b4dd4',
-        //     'name' => 'New Noise',
-        //     'artist' => 'Refused',
-        //     'genre' => 'Rock',
-        //     'length' => '3:51',
-        //     'date_added' => Carbon::now()
-        //    ]);
+        $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
 
         return view('pages/playlist', $data);
     }
 
     public function saveSessionPlaylist($id)
     {
-        session()->put('playlists.' . [PlaylistController::getIndex($id)] . '.saved', true);
+        session()->put('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.saved', true);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -57,23 +48,25 @@ class PlaylistController extends Controller
         //session()->put('playlists.1.name', 'oke');  
     }
 
+    public function addToSessionPlaylist($id, $songId)
+    {
+        session()->pull('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.songs.' . $songId);
+
+        return redirect('/user/playlist/' . $id);
+    }
+
     public function removeFromSessionPlaylist($id, $songId)
     {
-        session()->pull('playlists.' . [PlaylistController::getIndex($id)] . '.songs.' . $songId);
+        session()->pull('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.songs.' . $songId);
 
         return redirect('/user/playlist/' . $id);
     }
 
     public function deleteSessionPlaylist($id)
     {
-        session()->put('playlists.' . [PlaylistController::getIndex($id)] . '.deleted', true);
+        session()->put('playlists.' . [PlaylistController::getPlaylistIndex($id)] . '.deleted', true);
 
         return redirect('/user');
-    }
-
-    public function addToSessionPlaylist($id, Song $Song)
-    {
-
     }
 
     public function createSessionPlaylist(Request $req)

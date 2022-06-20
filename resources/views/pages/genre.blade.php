@@ -53,7 +53,25 @@ use App\Models\Song;
                                     <td>{{ $Song->artist }}</td>
                                     <td>{{ $Song->length }}</td>
                                     <td>{{ $Song->date_created }}</td>
-                                    <td><i class="bi bi-three-dots"></i></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="hidden-link" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="bi bi-plus-square-fill"></i>
+                                            </a>
+                                            <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
+                                                @if (session('playlists'))
+                                                    @foreach (session('playlists') as $Playlist)
+                                                        @if ($Playlist['deleted'] == false)
+                                                            <li><a class="dropdown-item" href="/user" style="color: {{ $Playlist['rgb_color'] }}"><i class="bi bi-folder-plus dropdown-icon"></i>{{ $Playlist['name'] }}</a></li>
+                                                        @endif
+                                                    @endforeach
+                                                @else
+                                                    <li><a class="dropdown-item" href="#">JE HEBT GEEN PLAYLISTS</a></li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                     </table>

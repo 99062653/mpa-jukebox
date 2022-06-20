@@ -38,7 +38,7 @@ if (session('user_id')) {
                     </tr>
                 </table>
         
-                <h2>Playlists <a class="hidden-link" href="/playlist/create">+</a></h2>
+                <h2>Playlists <a class="hidden-link" href="/playlist/create"><i class="bi bi-plus-square-fill"></i></a></h2>
         
                 <table>
                     @if (!session('playlists'))

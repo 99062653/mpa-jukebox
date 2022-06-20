@@ -63,6 +63,7 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
     Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
 
+    Route::get('/user/playlist/{playlistId}/add/{songId}', [PlaylistController::class, 'addToSessionPlaylist']);
     Route::get('/user/playlist/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromSessionPlaylist']);
 });
 
