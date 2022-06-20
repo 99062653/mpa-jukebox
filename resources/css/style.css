@@ -112,6 +112,10 @@ footer>div>p {
 	overflow-x: scroll;
 }
 
+#songs {
+	margin-bottom: 25px;
+}
+
 #genres-full {
 	display: flex;
 	justify-content: center;
