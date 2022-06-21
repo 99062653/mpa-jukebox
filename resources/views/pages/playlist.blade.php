@@ -86,13 +86,13 @@ if (session('playlists') && isset($id)) {
                             @if (str_contains(url()->current(), 'user')) 
                                 @foreach (session('playlists')[$id - 1]['songs'] as $Song)
                                 @php
-                                    $Genre = Genre::where('id', $Song['genre'])->first();
+                                    $Genre = Genre::where('id', $Song['genre_id'])->first();
                                 @endphp
                                         <tr>
                                             <td><img class="song-art" src="{{ $Song['cover_art'] }}" width="50" height="50" alt="cover-art"></td>
                                             <td>{{ $Song['name'] }}</td>
                                             <td>{{ $Song['artist'] }}</td>
-                                            <td><a class="hidden-link" href="/genre/{{  $Song['genre'] }}">{{ $Genre->name }}</a></td>
+                                            <td><a class="hidden-link" href="/genre/{{  $Song['genre_id'] }}">{{ $Genre->name }}</a></td>
                                             <td>{{ $Song['length'] }}</td>
                                             <td>{{ $Song['date_added'] }}</td>
                                             <td><a class="hidden-link" href="/user/playlist/{{ $id }}/remove/{{ $loop->index }}"><i class="bi bi-eraser"></i></a></td>

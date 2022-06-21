@@ -52,20 +52,25 @@ class PlaylistController extends Controller
     {
         $Song = Song::where('id', '=', $songId)->first();
         session()->push('playlists.' . PlaylistController::getPlaylistIndex($id) . '.songs', [
+            'id' => $Song->id,
             'name' => $Song->name,
             'artist' => $Song->artist,
             'cover_art' => $Song->cover_art,
-            'genre' => $Song->genre_id,
+            'genre_id' => $Song->genre_id,
             'length' => $Song->length,
             'date_added' => Carbon::now()
         ]);
 
+        LogController::logAction('added song ' . $Song->name . ' to playlist ' . $id);
+        return redirect(url()->previous());
     }
 
     public function removeFromSessionPlaylist($id, $songId)
     {
+        $Song = Song::where('id', '=', $songId)->first();
         session()->pull('playlists.' . PlaylistController::getPlaylistIndex($id) . '.songs.' . $songId);
 
+        LogController::logAction('removed song ' . $Song->name . ' from playlist ' . $id);
         return redirect('/user/playlist/' . $id);
     }
 
