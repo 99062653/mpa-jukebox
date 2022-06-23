@@ -1,12 +1,15 @@
 @php
 use App\Models\User;
 use App\Models\Genre;
-$User = User::where('id', session('user_id'))->first();
+$Amount = 0;
 $Length = 0;
 
-if (session('playlists') && isset($id)) {
-    foreach (session('playlists')[$id - 1]['songs'] as $Song) {
-        $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
+if (str_contains(url()->current(), 'user')) {
+    if (session('playlists') && isset($id)) {
+        foreach (session('playlists')[$id - 1]['songs'] as $Song) {
+            $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
+            $Amount++;
+        }
     }
 }
 
@@ -39,7 +42,8 @@ if (session('playlists') && isset($id)) {
                             <label for="color">Rgb Kleur</label>
                             <input type="color" name="color" class="form-control" required />
                         </div>
-                        <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
+                        <span class="error">{{ $issue ?? '' }}</span>
+                        <a type="button" class="link back" href="{{ url() }}">Terug</a>
                         <input type="submit" class="link" value="Create" />
                     </form>
                 </div>
@@ -53,7 +57,7 @@ if (session('playlists') && isset($id)) {
                             <a class="playlist-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots"></i>
                             </a>
-                            <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
+                            {{-- <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-fill dropdown-icon"></i>Edit</a></li>
                                 @if (!$saved)
                                     <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/save"><i class="bi bi-save-fill dropdown-icon"></i>Save</a></li>
@@ -61,15 +65,12 @@ if (session('playlists') && isset($id)) {
                                     <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/unsave"><i class="bi bi-save-fill dropdown-icon"></i>Unsave</a></li> 
                                 @endif
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/delete"><i class="bi bi-eraser-fill dropdown-icon"></i>Delete</a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                     <h1 class="playlist-description">
                         <p>
-                            <a class="hidden-link" href="/user">{{ $User->username }}</a>
-                            -
-                            {{ count(session('playlists')[$id - 1]['songs']) }} Songs,
-                            {{ $Length }} Minuten
+                            {{ $Amount }} Songs ~ {{ $Length }} Minuten
                         </p>
                     </h1>
                     <div id="songs">

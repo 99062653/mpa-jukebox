@@ -54,17 +54,17 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(PlaylistController::class)->group(function () {
-    Route::post('/playlist/create', [PlaylistController::class, 'createSessionPlaylist']);
+    Route::post('/playlist/create', [PlaylistController::class, 'createPlaylist']);
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'editSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/save', [PlaylistController::class, 'saveSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/delete', [PlaylistController::class, 'deleteSessionPlaylist']);
+    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'editPlaylist']);
+    Route::get('/user/playlist/{playlistId}/save', [PlaylistController::class, 'savePlaylist']);
+    Route::get('/user/playlist/{playlistId}/delete', [PlaylistController::class, 'deletePlaylist']);
 
     Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
     Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
 
-    Route::get('/user/playlist/{playlistId}/add/{songId}', [PlaylistController::class, 'addToSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromSessionPlaylist']);
+    Route::get('/user/playlist/{playlistId}/add/{songId}', [PlaylistController::class, 'addToPlaylist']);
+    Route::get('/user/playlist/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromPlaylist']);
 });
 
 Route::controller(SongController::class)->group(function () {

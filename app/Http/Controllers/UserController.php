@@ -32,6 +32,7 @@ class UserController extends Controller
                 }
 
                 session()->put('user_id', $user->id);
+                PlaylistController::loadPlaylists();
                 LogController::logAction("logged in");
                 return redirect('/');
             } else {
