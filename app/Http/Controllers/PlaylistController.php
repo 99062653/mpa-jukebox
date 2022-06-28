@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Song;
+use App\Models\PlaylistSong;
 
 class PlaylistController extends Controller
 {
@@ -29,6 +30,18 @@ class PlaylistController extends Controller
         $id = 1;
         foreach (Playlist::all()->where('user_id', '=', session('user_id')) as $Playlist) {
             session()->push('playlists', ['id' => $id,'name' => $Playlist->name, 'rgb_color' => $Playlist->rgb_color, 'songs' => [], 'saved' => true, 'deleted' => false]);
+            foreach (PlaylistSong::all()->where('playlist_id', '=', $Playlist->id) as $Song) {
+                $actualSong = Song::where('id', '=', $Song->song_id)->first();
+                session()->push('playlists.' .  PlaylistController::getPlaylistIndex($id) . '.songs', [
+                    'id' => $actualSong->id,
+                    'name' => $actualSong->name,
+                    'artist' => $actualSong->artist,
+                    'cover_art' => $actualSong->cover_art,
+                    'genre_id' => $actualSong->genre_id,
+                    'length' => $actualSong->length,
+                    'date_added' => $actualSong->date_added
+                ]);
+            }
             $id++;
         }
     }
@@ -50,11 +63,32 @@ class PlaylistController extends Controller
     public function savePlaylist($id)
     {
         $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
+        $Playlist = Playlist::where('user_id', '=', session('user_id'))
+                            ->where('name', '=', $data['name'])
+                            ->first();
         session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.saved', true);
 
-        if (count(Playlist::all()->where('user_id', '=', session('user_id'))->where('name', '=', $data['name'])) == 0) {
-            Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
+        if ($Playlist == null) {
+           $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
+        } else {
+            PlaylistSong::where('playlist_id', $Playlist->id)->delete();
         }
+
+        foreach (session('playlists')[PlaylistController::getPlaylistIndex($id)]['songs'] as $Song) {
+            PlaylistSong::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
+        }
+
+        return redirect('/user/playlist/' . $id);
+    }
+
+    public function unsavePlaylist($id)
+    {
+        $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
+        $Playlist = Playlist::where('user_id', '=', session('user_id'))->where('name', '=', $data['name']);
+        // $PlaylistSongs = PlaylistSong::where()
+        session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.saved', false);
+
+        $Playlist->delete();
 
         return redirect('/user/playlist/' . $id);
     }
@@ -101,9 +135,11 @@ class PlaylistController extends Controller
 
     public function createPlaylist(Request $req)
     {
-        foreach (session('playlists') as $playlist) {
-            if ($playlist['name'] == $req->name) {
-                return view('pages/playlist', ['issue' => 'Deze naam is al in gebruik']);
+        if (session('playlists')) {
+            foreach (session('playlists') as $playlist) {
+                if ($playlist['name'] == $req->name) {
+                    return view('pages/playlist', ['issue' => 'Deze naam is al in gebruik']);
+                }
             }
         }
         $id = 1;

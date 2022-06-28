@@ -43,7 +43,7 @@ if (str_contains(url()->current(), 'user')) {
                             <input type="color" name="color" class="form-control" required />
                         </div>
                         <span class="error">{{ $issue ?? '' }}</span>
-                        <a type="button" class="link back" href="{{ url() }}">Terug</a>
+                        <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
                         <input type="submit" class="link" value="Create" />
                     </form>
                 </div>
@@ -57,7 +57,7 @@ if (str_contains(url()->current(), 'user')) {
                             <a class="playlist-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots"></i>
                             </a>
-                            {{-- <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
+                            <ul class="dropdown-menu" id="dropdown-list" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/edit"><i class="bi bi-pencil-fill dropdown-icon"></i>Edit</a></li>
                                 @if (!$saved)
                                     <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/save"><i class="bi bi-save-fill dropdown-icon"></i>Save</a></li>
@@ -65,7 +65,7 @@ if (str_contains(url()->current(), 'user')) {
                                     <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/unsave"><i class="bi bi-save-fill dropdown-icon"></i>Unsave</a></li> 
                                 @endif
                                 <li><a class="dropdown-item" href="/user/playlist/{{ $id }}/delete"><i class="bi bi-eraser-fill dropdown-icon"></i>Delete</a></li>
-                            </ul> --}}
+                            </ul>
                         </div>
                     </div>
                     <h1 class="playlist-description">
