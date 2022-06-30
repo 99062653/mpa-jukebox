@@ -38,7 +38,7 @@ use App\Models\Playlist;
                 </div>
                 <h2 id="h2-playlists">Jukebox Playlists<span class="span-link"><a class="hidden-link" href="/playlists">Alle</a></span></h2>
                 <div id="playlists">
-                    @foreach (Playlist::all()->shuffle() as $Playlist)
+                    @foreach (Playlist::all()->where('user_id', '=', '1')->shuffle() as $Playlist)
                     @if ($loop->index == 15)
                         @break 
                     @endif

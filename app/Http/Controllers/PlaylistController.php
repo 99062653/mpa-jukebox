@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Song;
 use App\Models\PlaylistSong;
+use Exception;
 
 class PlaylistController extends Controller
 {
@@ -128,6 +129,19 @@ class PlaylistController extends Controller
 
     public function deletePlaylist($id)
     {
+        $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
+        $Playlist = Playlist::where('user_id', session('user_id'))->where('name', $data['name'])->first();
+
+        try {
+            foreach (PlaylistSong::all()->where('playlist_id', $Playlist->id) as $ForeignKey) {
+                $ForeignKey->delete();
+            }
+
+            $Playlist->delete();
+        } catch (Exception $e) {
+            
+        }
+
         session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.deleted', true);
 
         return redirect('/user');
