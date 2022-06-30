@@ -1,18 +1,17 @@
 @php
-use App\Models\User;
-use App\Models\Genre;
-$Amount = 0;
-$Length = 0;
+    use App\Models\User;
+    use App\Models\Genre;
+    $Amount = 0;
+    $Length = 0;
 
-if (str_contains(url()->current(), 'user')) {
-    if (session('playlists') && isset($id)) {
-        foreach (session('playlists')[$id - 1]['songs'] as $Song) {
-            $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
-            $Amount++;
+    if (str_contains(url()->current(), 'user')) {
+        if (session('playlists') && isset($id)) {
+            foreach (session('playlists')[$id - 1]['songs'] as $Song) {
+                $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
+                $Amount++;
+            }
         }
     }
-}
-
 @endphp
 
 @include("layout/header")
@@ -43,7 +42,7 @@ if (str_contains(url()->current(), 'user')) {
                             <input type="color" name="color" class="form-control" required />
                         </div>
                         <span class="error">{{ $issue ?? '' }}</span>
-                        <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
+                        <a type="button" class="link back" href="/user">Terug</a>
                         <input type="submit" class="link" value="Create" />
                     </form>
                 </div>

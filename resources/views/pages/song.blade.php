@@ -1,5 +1,7 @@
 @php
-use App\Models\Genre;
+    use App\Models\Genre;
+
+    //DIT IS ALLEMAAL WIP!!!
 @endphp
 
 @include("layout/header")

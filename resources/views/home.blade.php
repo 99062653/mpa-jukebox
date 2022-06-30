@@ -1,6 +1,6 @@
 @php
-use App\Models\Genre;
-use App\Models\Playlist;
+    use App\Models\Genre;
+    use App\Models\Playlist;
 @endphp
 
 @include("layout/header")
@@ -24,31 +24,31 @@ use App\Models\Playlist;
                 <h2 id="h2-genres">Interessante Genres <span class="span-link"><a class="hidden-link" href="/genres">Alle</a></span></h2>
                 <div id="genres">
                     @foreach (Genre::all()->shuffle() as $Genre)
-                    @if ($loop->index == 15)
-                        @break 
-                    @endif
-                    <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
-                        <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
-                            <b>
-                                {{ $Genre->name }}
-                            </b>
-                        </div>
-                    </a>
+                        @if ($loop->index == 15)
+                            @break 
+                        @endif
+                        <a class="hidden-link" href="/genre/<?= $Genre->id ?>">
+                            <div class="genre" style="background-color: {{ $Genre->rgb_color }}">
+                                <b>
+                                    {{ $Genre->name }}
+                                </b>
+                            </div>
+                        </a>
                     @endforeach
                 </div>
                 <h2 id="h2-playlists">Jukebox Playlists<span class="span-link"><a class="hidden-link" href="/playlists">Alle</a></span></h2>
                 <div id="playlists">
                     @foreach (Playlist::all()->where('user_id', '=', '1')->shuffle() as $Playlist)
-                    @if ($loop->index == 15)
-                        @break 
-                    @endif
-                    <a class="hidden-link" href="/playlist/<?= $Playlist->id ?>">
-                        <div class="playlist" style="background-color: {{ $Playlist->rgb_color }}">
-                            <b>
-                                {{ $Playlist->name }}
-                            </b>
-                        </div>
-                    </a>
+                        @if ($loop->index == 15)
+                            @break 
+                        @endif
+                        <a class="hidden-link" href="/playlist/<?= $Playlist->id ?>">
+                            <div class="playlist" style="background-color: {{ $Playlist->rgb_color }}">
+                                <b>
+                                    {{ $Playlist->name }}
+                                </b>
+                            </div>
+                        </a>
                     @endforeach
                 </div>
         </div>

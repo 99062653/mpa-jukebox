@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\LogController;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -15,7 +14,6 @@ class UserController extends Controller
 {
     use HasFactory;
 
-    //ENTRY
     public function login(Request $req)
     {
         $username = User::select('*')

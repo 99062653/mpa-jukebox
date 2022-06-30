@@ -156,9 +156,11 @@ class PlaylistController extends Controller
                 }
             }
         }
-        $id = 1;
+        
         if (session('playlists')) {
             $id = count(session('playlists')) + 1;
+        } else {
+            $id = 1;
         }
         session()->push('playlists', ['id' => $id,'name' => $req->name, 'rgb_color' => $req->color, 'songs' => [], 'saved' => false, 'deleted' => false]);
 
