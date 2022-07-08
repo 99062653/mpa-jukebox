@@ -11,23 +11,25 @@ body {
 	width: 100vw;
 	/* 100% view width */
 	background-color: rgb(25, 2, 45);
+	color: rgb(255, 255, 255);
 }
 
-nav {
+nav, footer {
 	width: 100vw;
 	background-color: rgb(38, 4, 68);
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
 	position: absolute;
-	left: 15px;
 	bottom: 15px;
 }
 
+input[type=button] {
+	left: 15px;
+}
+
 input[type=submit] {
-	position: absolute;
 	right: 0;
-	bottom: 15px;
 }
 
 label {
@@ -35,12 +37,7 @@ label {
 }
 
 h1 {
-	color: rgb(255, 255, 255);
 	margin-bottom: 15px;
-}
-
-h2 {
-	color: rgb(255, 255, 255);
 }
 
 table {
@@ -57,13 +54,7 @@ tr:nth-child(even) {
 
 th, td {
 	padding: 15px;
-	color: rgb(255, 255, 255);
 	text-align: center;
-}
-
-footer {
-	width: 100vw;
-	background-color: rgb(38, 4, 68);
 }
 
 footer>div>p {
@@ -163,14 +154,12 @@ footer>div>p {
 	right: 50px;
 	top: 15px;
 	background-color: rgb(38, 4, 68);
-	color: rgb(255, 255, 255);
 	border: 0;
 }
 
 .searchbar:focus {
 	box-shadow: none;
 	background-color: rgb(38, 4, 68);
-	color: rgb(255, 255, 255);
 }
 
 .searchbar-link {
@@ -186,7 +175,6 @@ footer>div>p {
 .nav-link,
 .playlist-link {
 	text-decoration: none;
-	color: rgb(255, 255, 255);
 	background-color: rgb(255, 24, 179);
 	border: rgb(255, 24, 179);
 	border-radius: 23px;
@@ -231,12 +219,7 @@ footer>div>p {
 	color: rgb(255, 0, 0);
 }
 
-.td-name {
-	color: rgb(225, 221, 221);
-}
-
 .td-password, .hidden-link {
-	color: rgb(255, 255, 255);
 	text-decoration: none;
 }
 

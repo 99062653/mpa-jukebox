@@ -13,21 +13,22 @@ body {
 	background-color: rgb(25, 2, 45);
 }
 
-nav {
+nav, footer {
 	width: 100vw;
 	background-color: rgb(38, 4, 68);
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
 	position: absolute;
-	left: 15px;
 	bottom: 15px;
 }
 
+input[type=button] {
+	left: 15px;
+}
+
 input[type=submit] {
-	position: absolute;
 	right: 0;
-	bottom: 15px;
 }
 
 label {
@@ -59,11 +60,6 @@ th, td {
 	padding: 15px;
 	color: rgb(255, 255, 255);
 	text-align: center;
-}
-
-footer {
-	width: 100vw;
-	background-color: rgb(38, 4, 68);
 }
 
 footer>div>p {
