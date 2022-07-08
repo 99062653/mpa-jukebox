@@ -40,12 +40,12 @@
                     </tr>
                 </table>
         
-                <h2>Playlists <a class="hidden-link" href="/playlist/create"><i class="bi bi-plus-square-fill"></i></a></h2>
+                <h2>Playlists <a class="hidden-link" href="/user/playlist/create"><i class="bi bi-plus-square-fill"></i></a></h2>
         
                 <table>
                     @if (!session('playlists'))
                         <tr>
-                            <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/playlist/create">maak een playlist</a></b></td>
+                            <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/user/playlist/create">maak een playlist</a></b></td>
                         </tr>
                     @else
                         <div id="playlists">

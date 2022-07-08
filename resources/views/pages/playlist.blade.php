@@ -28,9 +28,9 @@
                     
                 @break
 
-            @case('playlist/create')
+            @case('user/playlist/create')
                 <div id="form">
-                    <form action="/playlist/create" method="POST">
+                    <form action="/user/playlist/create" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>

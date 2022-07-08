@@ -7,9 +7,7 @@
 html,
 body {
 	height: 100vh;
-	/* 100% view height */
 	width: 100vw;
-	/* 100% view width */
 	background-color: rgb(25, 2, 45);
 }
 
@@ -36,11 +34,10 @@ label {
 }
 
 h1 {
-	color: rgb(255, 255, 255);
 	margin-bottom: 15px;
 }
 
-h2 {
+h1, h2, th, td {
 	color: rgb(255, 255, 255);
 }
 
@@ -58,7 +55,6 @@ tr:nth-child(even) {
 
 th, td {
 	padding: 15px;
-	color: rgb(255, 255, 255);
 	text-align: center;
 }
 
@@ -80,8 +76,6 @@ footer>div>p {
 	top: 100px;
 	padding: 15px;
 }
-
-/* #content-mid {} */
 
 #form {
 	position: relative;
