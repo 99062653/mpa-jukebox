@@ -38,6 +38,13 @@ Route::view('/song/edit', 'pages/song');
 
 Route::view('/genres', 'pages/genre');
 
+Route::view('/admin/panel', 'pages/admin');
+Route::view('/admin/users', 'pages/admin');
+Route::view('/admin/songs', 'pages/admin');
+
+Route::view('/admin/genres', 'pages/admin');
+Route::view('/admin/logs', 'pages/admin');
+
 // ~~ GET ~~
 
 Route::get('/user', [UserController::class, 'getSessionUser']);
@@ -72,13 +79,4 @@ Route::controller(SongController::class)->group(function () {
     Route::post('/song/create', [SongController::class, 'createSong']);
     Route::post('/song/edit', [SongController::class, 'edit']);
     Route::get('/song/delete', [SongController::class, 'delete']);
-});
-
-Route::controller(AdminController::class)->group(function () {
-    Route::view('/admin/panel', 'pages/admin');
-    Route::view('/admin/users', 'pages/admin');
-    Route::view('/admin/songs', 'pages/admin');
-
-    Route::view('/admin/genres', 'pages/admin');
-    Route::view('/admin/logs', 'pages/admin');
 });

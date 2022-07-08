@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Playlist extends Model
+class Playlist extends BaseModel
 {
     use HasFactory;
 
@@ -15,6 +15,4 @@ class Playlist extends Model
         'rgb_color',
         'date_created'
     ];
-
-    public $timestamps = false;
 }
