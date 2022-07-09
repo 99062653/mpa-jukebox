@@ -1,6 +1,8 @@
 @php
     use App\Models\User;
     use App\Models\Genre;
+    use App\Models\Song;
+    use App\Models\PlaylistSong;
     $Amount = 0;
     $Length = 0;
 
@@ -20,14 +22,6 @@
 
     <div id="content">
         @switch(request()->route()->uri())
-            @case('playlist')
-
-                @break
-
-            @case('playlist/edit')
-                    
-                @break
-
             @case('user/playlist/create')
                 <div id="form">
                     <form action="/user/playlist/create" method="POST">
@@ -100,7 +94,21 @@
                                 @endforeach
 
                             @else
-
+                                @foreach ($songids as $id)
+                                @php
+                                    $ActualSong = Song::where('id', $id)->first();
+                                    $Genre = Genre::where('id', $ActualSong->id)->first();
+                                @endphp
+                                        <tr>
+                                            <td><img class="song-art" src="{{ $ActualSong->cover_art }}" width="50" height="50" alt="cover-art"></td>
+                                            <td>{{ $ActualSong->name }}</td>
+                                            <td>{{ $ActualSong->artist }}</td>
+                                            <td><a class="hidden-link" href="/genre/{{  $ActualSong->genre_id }}">{{ $Genre->name }}</a></td>
+                                            <td>{{ $ActualSong->length }}</td>
+                                            <td>{{ $ActualSong->date_added }}</td>
+                                            <td></td>
+                                        </tr>
+                                @endforeach
                             @endif
                         </table>
                     </div>

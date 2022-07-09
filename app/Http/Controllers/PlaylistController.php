@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Song;
 use App\Models\PlaylistSong;
+use Database\Seeders\PlaylistsSeeder;
 use Exception;
 
 class PlaylistController extends Controller
@@ -50,8 +51,21 @@ class PlaylistController extends Controller
     public function getEloquentPlaylist($id)
     {
         $data = Playlist::where('id', '=', $id)->first();
+        $Songs = [];
 
-        return view('pages/playlist', $data);
+        foreach (PlaylistSong::all()->where('playlist_id', '=', $data->id) as $Song) {
+                $Songs[] = $Song->id;
+        }
+
+        return view('pages/playlist', 
+            [
+            'id' => $data->id,
+            'rgb_color' => $data->rgb_color,
+            'name' => $data->name,
+            'saved' => true,
+            'songids' => $Songs
+            ]
+        );
     }
 
     public function getSessionPlaylist($id)
