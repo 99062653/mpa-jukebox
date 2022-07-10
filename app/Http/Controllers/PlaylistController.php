@@ -17,7 +17,7 @@ class PlaylistController extends Controller
     {
         for ($i = 0; $i < count(session('playlists')); $i++) {
             if (session('playlists')[$i]['id'] == $id) {
-               return $i;
+                return $i;
             }
         }
     }
@@ -31,7 +31,7 @@ class PlaylistController extends Controller
     {
         $id = 1;
         foreach (Playlist::all()->where('user_id', '=', session('user_id')) as $Playlist) {
-            session()->push('playlists', ['id' => $id,'name' => $Playlist->name, 'rgb_color' => $Playlist->rgb_color, 'songs' => [], 'saved' => true, 'deleted' => false]);
+            session()->push('playlists', ['id' => $id, 'name' => $Playlist->name, 'rgb_color' => $Playlist->rgb_color, 'songs' => [], 'saved' => true, 'deleted' => false]);
             foreach (PlaylistSong::all()->where('playlist_id', '=', $Playlist->id) as $Song) {
                 $actualSong = Song::where('id', '=', $Song->song_id)->first();
                 session()->push('playlists.' .  PlaylistController::getPlaylistIndex($id) . '.songs', [
@@ -50,27 +50,39 @@ class PlaylistController extends Controller
 
     public function getEloquentPlaylist($id)
     {
-        $data = Playlist::where('id', '=', $id)->first();
+        $data = [];
+        $playlist = Playlist::where('id', '=', $id)->first();
         $Songs = [];
 
-        foreach (PlaylistSong::all()->where('playlist_id', '=', $data->id) as $Song) {
-                $Songs[] = $Song->id;
+        foreach (PlaylistSong::all()->where('playlist_id', '=', $playlist->id) as $ForeignKey) {
+            $Songs[] = $ForeignKey->song_id;
         }
 
-        return view('pages/playlist', 
-            [
-            'id' => $data->id,
-            'rgb_color' => $data->rgb_color,
-            'name' => $data->name,
-            'saved' => true,
-            'songids' => $Songs
-            ]
-        );
+        $data['id'] = $playlist->id;
+        $data['name'] = $playlist->name;
+        $data['rgb_color'] = $playlist->rgb_color;
+        $data['saved'] = true;
+        $data['songids'] = $Songs;
+
+        $data['amount'] = 0;
+        $data['length'] = 0;
+
+        return view('pages/playlist', $data);
     }
 
     public function getSessionPlaylist($id)
     {
         $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
+        $Length = 0;
+        $Amount = 0;
+
+        foreach (session('playlists')[PlaylistController::getPlaylistIndex($id)]['songs'] as $Song) {
+            $Length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
+            $Amount++;
+        }
+
+        $data['length'] = $Length;
+        $data['amount'] = $Amount;
 
         return view('pages/playlist', $data);
     }
@@ -79,12 +91,12 @@ class PlaylistController extends Controller
     {
         $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
         $Playlist = Playlist::where('user_id', '=', session('user_id'))
-                            ->where('name', '=', $data['name'])
-                            ->first();
+            ->where('name', '=', $data['name'])
+            ->first();
         session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.saved', true);
 
         if ($Playlist == null) {
-           $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
+            $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
         } else {
             PlaylistSong::where('playlist_id', $Playlist->id)->delete();
         }
@@ -110,7 +122,6 @@ class PlaylistController extends Controller
 
     public function editPlaylist($id)
     {
-        
     }
 
     public function addToPlaylist($id, $songId)
@@ -153,7 +164,6 @@ class PlaylistController extends Controller
 
             $Playlist->delete();
         } catch (Exception $e) {
-            
         }
 
         session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.deleted', true);
@@ -170,13 +180,13 @@ class PlaylistController extends Controller
                 }
             }
         }
-        
+
         if (session('playlists')) {
             $id = count(session('playlists')) + 1;
         } else {
             $id = 1;
         }
-        session()->push('playlists', ['id' => $id,'name' => $req->name, 'rgb_color' => $req->color, 'songs' => [], 'saved' => false, 'deleted' => false]);
+        session()->push('playlists', ['id' => $id, 'name' => $req->name, 'rgb_color' => $req->color, 'songs' => [], 'saved' => false, 'deleted' => false]);
 
         LogController::logAction('created a playlist');
         return redirect('/user');
