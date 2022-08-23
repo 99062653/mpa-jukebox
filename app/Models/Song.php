@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Song extends Model
+class Song extends BaseModel
 {
     use HasFactory;
 
@@ -19,6 +19,4 @@ class Song extends Model
         'date_added',
         'deleted'
     ];
-
-    public $timestamps = false;
 }

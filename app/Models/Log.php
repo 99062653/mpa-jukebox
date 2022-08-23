@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Log extends Model
+class Log extends BaseModel
 {
     use HasFactory;
 
@@ -15,6 +15,4 @@ class Log extends Model
         'date',
         'timestamp'
     ];
-
-    public $timestamps = false;
 }

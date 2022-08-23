@@ -1,8 +1,8 @@
 @php
-use App\Models\User;
-use App\Models\Song;
-use App\Models\Genre;
-use App\Models\Log;
+    use App\Models\User;
+    use App\Models\Song;
+    use App\Models\Genre;
+    use App\Models\Log;
 @endphp
 
 @include("layout/header")

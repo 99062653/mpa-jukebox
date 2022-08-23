@@ -7,27 +7,26 @@
 html,
 body {
 	height: 100vh;
-	/* 100% view height */
 	width: 100vw;
-	/* 100% view width */
 	background-color: rgb(25, 2, 45);
 }
 
-nav {
+nav, footer {
 	width: 100vw;
 	background-color: rgb(38, 4, 68);
 }
 
-input[type=button] {
+input[type=button], input[type=submit] {
 	position: absolute;
-	left: 15px;
 	bottom: 15px;
 }
 
+input[type=button] {
+	left: 15px;
+}
+
 input[type=submit] {
-	position: absolute;
 	right: 0;
-	bottom: 15px;
 }
 
 label {
@@ -35,13 +34,10 @@ label {
 }
 
 h1 {
-	font-weight: bolder;
-	color: rgb(255, 255, 255);
 	margin-bottom: 15px;
 }
 
-h2 {
-	font-weight: bold;
+h1, h2, th, td {
 	color: rgb(255, 255, 255);
 }
 
@@ -59,13 +55,7 @@ tr:nth-child(even) {
 
 th, td {
 	padding: 15px;
-	color: rgb(255, 255, 255);
 	text-align: center;
-}
-
-footer {
-	width: 100vw;
-	background-color: rgb(38, 4, 68);
 }
 
 footer>div>p {
@@ -87,8 +77,6 @@ footer>div>p {
 	padding: 15px;
 }
 
-/* #content-mid {} */
-
 #form {
 	position: relative;
 	top: 17.5vh;
@@ -101,7 +89,6 @@ footer>div>p {
 }
 
 #dropdown-list {
-	min-height: 85px;
 	top: 45px;
 	left: -100px;
 }

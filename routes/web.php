@@ -22,62 +22,60 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// ~~ VIEW ~~
-Route::view('/', 'home');
-
-Route::view('/user/login', 'pages/user');
-Route::view('/user/register', 'pages/user');
-Route::view('/user/edit/password', 'pages/user');
-
-Route::view('/playlist', 'pages/playlist');
-Route::view('/playlist/create', 'pages/playlist');
-Route::view('/playlist/edit', 'pages/playlist');
-
-Route::view('/song/create', 'pages/song');
-Route::view('/song/edit', 'pages/song');
+Route::get('/', function () {
+    return view('home');
+});
 
 Route::view('/genres', 'pages/genre');
-
-// ~~ GET ~~
 
 Route::get('/user', [UserController::class, 'getSessionUser']);
 
 Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
 
-// ~~ GROUP ~~
 Route::controller(UserController::class)->group(function () {
-    Route::post('/user/login', [UserController::class, 'login']);
-    Route::post('/user/register', [UserController::class, 'register']);
-    Route::get('/user/logout', [UserController::class, 'logout']);
+    Route::prefix('user')->group(function () {
+        Route::view('/login', 'pages/user');
+        Route::view('/register', 'pages/user');
+        Route::view('/edit/password', 'pages/user');
+        
+        Route::post('/login', [UserController::class, 'login']);
+        Route::post('/register', [UserController::class, 'register']);
+        Route::get('/logout', [UserController::class, 'logout']);
 
-    Route::post('/user/edit/password', [UserController::class, 'changePassword']);
-});
-
-Route::controller(PlaylistController::class)->group(function () {
-    Route::post('/playlist/create', [PlaylistController::class, 'createSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/edit', [PlaylistController::class, 'editSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/save', [PlaylistController::class, 'saveSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/delete', [PlaylistController::class, 'deleteSessionPlaylist']);
-
-    Route::get('/user/playlist/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
-    Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
-
-    Route::get('/user/playlist/{playlistId}/add/{songId}', [PlaylistController::class, 'addToSessionPlaylist']);
-    Route::get('/user/playlist/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromSessionPlaylist']);
-});
-
-Route::controller(SongController::class)->group(function () {
-    Route::post('/song/create', [SongController::class, 'createSong']);
-    Route::post('/song/edit', [SongController::class, 'edit']);
-    Route::get('/song/delete', [SongController::class, 'delete']);
+        Route::post('/edit/password', [UserController::class, 'changePassword']);
+    });
 });
 
 Route::controller(AdminController::class)->group(function () {
-    Route::view('/admin/panel', 'pages/admin');
-    Route::view('/admin/users', 'pages/admin');
-    Route::view('/admin/songs', 'pages/admin');
+    Route::prefix('admin')->group(function () {
+        Route::view('/panel', 'pages/admin');
+        Route::view('/users', 'pages/admin');
+        Route::view('/songs', 'pages/admin');
 
-    Route::view('/admin/genres', 'pages/admin');
-    Route::view('/admin/logs', 'pages/admin');
+        Route::view('/genres', 'pages/admin');
+        Route::view('/logs', 'pages/admin');
+    });
+});
+
+Route::controller(PlaylistController::class)->group(function () {
+    Route::prefix('user')->group(function () {
+        Route::prefix('playlist')->group(function () {
+            Route::view('/create', 'pages/playlist');
+            Route::post('/create', [PlaylistController::class, 'createPlaylist']);
+            Route::get('/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+            Route::get('/{playlistId}/edit', [PlaylistController::class, 'editPlaylist']);
+            Route::get('/{playlistId}/save', [PlaylistController::class, 'savePlaylist']);
+            Route::get('/{playlistId}/unsave', [PlaylistController::class, 'unsavePlaylist']);
+            Route::get('/{playlistId}/delete', [PlaylistController::class, 'deletePlaylist']);
+
+            Route::get('/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+
+            Route::get('/{playlistId}/add/{songId}', [PlaylistController::class, 'addToPlaylist']);
+            Route::get('/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromPlaylist']);
+        });  
+    });
+
+    Route::view('/playlist', 'pages/playlist');
+    Route::view('/playlist/edit', 'pages/playlist');
+    Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
 });
