@@ -1,6 +1,6 @@
 @php
-    use App\Models\Genre;
-    use App\Models\Song;
+use App\Models\Genre;
+use App\Models\Song;
 @endphp
 
 @include("layout/header")
