@@ -44,7 +44,7 @@ class PlaylistController extends Controller
 
     public function editSessionPlaylist($id)
     {
-        // session()->push('playlists.' . $id - 1 . '.songs', ['name' => 'obama']);
+        //session()->push('playlists.' . $id - 1 . '.songs', ['name' => 'obama']);
         //session()->put('playlists.1.name', 'oke');  
     }
 
@@ -59,7 +59,6 @@ class PlaylistController extends Controller
             'length' => $Song->length,
             'date_added' => Carbon::now()
         ]);
-
     }
 
     public function removeFromSessionPlaylist($id, $songId)
