@@ -1,8 +1,5 @@
 @php
-use App\Models\Role;
-if (session('user_id')) {
-    $Role = Role::all()->where('id', $role_id)->first();
-}
+    use App\Models\Role;
 @endphp
 
 @include("layout/header")
@@ -11,6 +8,11 @@ if (session('user_id')) {
 
     @switch(request()->route()->uri())
         @case('user')
+        @php
+            if (session('user_id')) {
+                $Role = Role::all()->where('id', $role_id)->first();
+            }
+        @endphp
             @include("layout/nav")
         
             <div id="content">
@@ -38,12 +40,12 @@ if (session('user_id')) {
                     </tr>
                 </table>
         
-                <h2>Playlists <a class="hidden-link" href="/playlist/create"><i class="bi bi-plus-square-fill"></i></a></h2>
+                <h2>Playlists <a class="hidden-link" href="/user/playlist/create"><i class="bi bi-plus-square-fill"></i></a></h2>
         
                 <table>
                     @if (!session('playlists'))
                         <tr>
-                            <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/playlist/create">maak een playlist</a></b></td>
+                            <td class="td-create">het is nogal leeg hier :( <br /><b><a href="/user/playlist/create">maak een playlist</a></b></td>
                         </tr>
                     @else
                         <div id="playlists">
@@ -51,12 +53,12 @@ if (session('user_id')) {
                                 @if ($Playlist['deleted'] == false)
                                     <a class="hidden-link" href="/user/playlist/<?= $Playlist['id'] ?>">
                                     <div class="playlist" style="background-color: {{ $Playlist['rgb_color'] }}">
-                                            <b>
-                                                {{ $Playlist['name'] }}
-                                                @if ($Playlist['saved'])
-                                                    <i class="bi bi-check"></i>
-                                                @endif
-                                            </b> 
+                                        <b>
+                                            {{ $Playlist['name'] }}
+                                            @if ($Playlist['saved'])
+                                                <i class="bi bi-check"></i>
+                                            @endif
+                                        </b> 
                                         </div>
                                     </a>
                                 @endif
@@ -64,46 +66,6 @@ if (session('user_id')) {
                         </div>
                     @endif
                 </table>
-            </div>
-            @break
-
-        @case('user/login')
-            <div id="form">
-                <form action="/user/login" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username"
-                            value="{{ $username ?? '' }}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password" required />
-                    </div>
-                    <span class="error">{{ $issue ?? '' }}</span>
-                    <a type="button" class="link back" href="/">Terug</a>
-                    <input type="submit" class="link" value="Login" />
-                </form>
-            </div>
-            @break
-
-        @case('user/register')
-            <div id="form">
-                <form action="/user/register" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username"
-                            value="{{ $username ?? '' }}" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password" />
-                    </div>
-                    <span class="error">{{ $issue ?? '' }}</span>
-                    <a type="button" class="link back" href="/">Terug</a>
-                    <input type="submit" class="link" value="Register" />
-                </form>
             </div>
             @break
 
@@ -120,8 +82,37 @@ if (session('user_id')) {
                         <input type="password" name="newpass" class="form-control" />
                     </div>
                     <span class="error">{{ $issue ?? '' }}</span>
-                    <a type="button" class="link back" href="{{ url()->previous() }}">Terug</a>
+                    <a type="button" class="link back" href="/user">Terug</a>
                     <input type="submit" class="link" value="Update" />
+                </form>
+            </div>
+            @break
+
+        @default
+            <div id="form">
+                @switch(request()->route()->uri())
+                    @case('user/login')
+                        <form action="/user/login" method="POST">
+                            @php ($value = 'Login')
+                        @break
+                    @case('user/register')
+                        <form action="/user/register" method="POST">
+                            @php ($value = 'Register')
+                        @break
+                @endswitch
+                    @csrf
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Username"
+                            value="{{ $username ?? '' }}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Password" required />
+                    </div>
+                    <span class="error">{{ $issue ?? '' }}</span>
+                    <a type="button" class="link back" href="/">Terug</a>
+                    <input type="submit" class="link" value="{{ $value }}" />
                 </form>
             </div>
             @break
