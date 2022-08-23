@@ -52,13 +52,13 @@
                             @foreach (session('playlists') as $Playlist)
                                 @if ($Playlist['deleted'] == false)
                                     <a class="hidden-link" href="/user/playlist/<?= $Playlist['id'] ?>">
-                                    <div class="playlist" style="background-color: {{ $Playlist['rgb_color'] }}">
-                                        <b>
-                                            {{ $Playlist['name'] }}
-                                            @if ($Playlist['saved'])
-                                                <i class="bi bi-check"></i>
-                                            @endif
-                                        </b> 
+                                        <div class="playlist" style="background-color: {{ $Playlist['rgb_color'] }}">
+                                            <b>
+                                                {{ $Playlist['name'] }}
+                                                @if ($Playlist['saved'])
+                                                    <i class="bi bi-check"></i>
+                                                @endif
+                                            </b> 
                                         </div>
                                     </a>
                                 @endif
