@@ -172,6 +172,7 @@ footer>div>p {
 }
 
 .link,
+.back-link,
 .searchbar-link,
 .nav-link,
 .playlist-link {
@@ -194,6 +195,7 @@ footer>div>p {
 }
 
 .link:hover,
+.back-link:hover,
 .searchbar-link:hover,
 .nav-link:hover,
 .playlist-link:hover {

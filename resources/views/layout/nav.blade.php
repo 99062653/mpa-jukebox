@@ -14,6 +14,11 @@
 				</li>
 				@else
 				<li class="nav-item">
+					<a class="back-link nav-link" href="{{ url()->previous() }}">
+						<i class="bi bi-skip-backward-circle"></i>
+					</a>
+				</li>
+				<li class="nav-item">
 					<div class="dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 							data-bs-toggle="dropdown" aria-expanded="false">

@@ -7,7 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Playlist;
 use App\Models\Song;
-use App\Models\PlaylistSong;
+use App\Models\SongInPlaylist;
+use App\Http\Classes\PlaylistClass;
 use Exception;
 
 class PlaylistController extends Controller
@@ -44,9 +45,9 @@ class PlaylistController extends Controller
     public static function loadPlaylists()
     {
         $id = 1;
-        foreach (Playlist::all()->where('user_id', '=', session('user_id')) as $Playlist) {
+        foreach (Playlist::where('user_id', '=', session('user_id'))->get() as $Playlist) {
             session()->push('playlists', ['id' => $id, 'name' => $Playlist->name, 'rgb_color' => $Playlist->rgb_color, 'songs' => [], 'saved' => true, 'deleted' => false]);
-            foreach (PlaylistSong::all()->where('playlist_id', '=', $Playlist->id) as $Song) {
+            foreach (SongInPlaylist::where('playlist_id', '=', $Playlist->id)->get() as $Song) {
                 $actualSong = Song::where('id', '=', $Song->song_id)->first();
                 session()->push('playlists.' .  PlaylistController::getPlaylistIndex($id) . '.songs', [
                     'id' => $actualSong->id,
@@ -66,15 +67,17 @@ class PlaylistController extends Controller
     public function getEloquentPlaylist($id)
     {
         $data = Playlist::where('id', '=', $id)->first();
+        $data['songs'] = [];
         $data['saved'] = true;
+        $data['deleted'] = false;
 
-        foreach (PlaylistSong::where('playlist_id', '=', $id) as $songid) {
-            $data['songids'] += $songid;
+        foreach (SongInPlaylist::where('playlist_id', '=', $id)->get() as $Result) {
+            $data['songs'] += $Result;
         }
 
-        $Newdata = PlaylistController::calculateDuration($id, $data);
+        $data = PlaylistController::calculateDuration($id, $data);
 
-        return view('pages/playlist', $Newdata);
+        return view('pages/playlist', $data);
     }
 
     // --SESSION--
@@ -82,9 +85,9 @@ class PlaylistController extends Controller
     {
         $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
 
-        $Newdata = PlaylistController::calculateDuration($id, $data);
+        $data = PlaylistController::calculateDuration($id, $data);
 
-        return view('pages/playlist', $Newdata);
+        return view('pages/playlist', $data);
     }
 
     public function savePlaylist($id)
@@ -98,11 +101,11 @@ class PlaylistController extends Controller
         if ($Playlist == null) {
             $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
         } else {
-            PlaylistSong::where('playlist_id', $Playlist->id)->delete();
+            SongInPlaylist::where('playlist_id', $Playlist->id)->delete();
         }
 
         foreach (session('playlists')[PlaylistController::getPlaylistIndex($id)]['songs'] as $Song) {
-            PlaylistSong::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
+            SongInPlaylist::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
         }
 
         return redirect('/user/playlist/' . $id);
@@ -112,18 +115,12 @@ class PlaylistController extends Controller
     {
         $data = session('playlists')[PlaylistController::getPlaylistIndex($id)];
         $Playlist = Playlist::where('user_id', '=', session('user_id'))->where('name', '=', $data['name']);
-        // $PlaylistSongs = PlaylistSong::where()
+        // $SongInPlaylists = SongInPlaylist::where()
         session()->put('playlists.' . PlaylistController::getPlaylistIndex($id) . '.saved', false);
 
         $Playlist->delete();
 
         return redirect('/user/playlist/' . $id);
-    }
-
-    public function editSessionPlaylist($id)
-    {
-        //session()->push('playlists.' . $id - 1 . '.songs', ['name' => 'obama']);
-        //session()->put('playlists.1.name', 'oke');  
     }
 
     public function addToPlaylist($id, $songId)
@@ -160,7 +157,7 @@ class PlaylistController extends Controller
         $Playlist = Playlist::where('user_id', session('user_id'))->where('name', $data['name'])->first();
 
         try {
-            foreach (PlaylistSong::all()->where('playlist_id', $Playlist->id) as $ForeignKey) {
+            foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
                 $ForeignKey->delete();
             }
 

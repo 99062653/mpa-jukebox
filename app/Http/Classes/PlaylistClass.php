@@ -2,7 +2,7 @@
 
 namespace App\Http\Classes;
 
-class LocalPlaylist 
+class PlaylistClass 
 {
     public $Id;
     public $Name;

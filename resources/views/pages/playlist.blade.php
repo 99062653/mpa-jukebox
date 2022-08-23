@@ -2,7 +2,8 @@
     use App\Models\User;
     use App\Models\Genre;
     use App\Models\Song;
-    use App\Models\PlaylistSong;
+    use App\Models\SongInPlaylist;
+    use App\Http\Controllers\PlaylistController;
 @endphp
 
 @include("layout/header")
@@ -67,7 +68,7 @@
                             <th></th>
                         </tr>
                         @if (str_contains(url()->current(), 'user')) 
-                            @foreach (session('playlists')[$id - 1]['songs'] as $Song)
+                            @foreach (session('playlists')[PlaylistController::getPlaylistIndex($id)]['songs'] as $Song)
                             @php
                                 $Genre = Genre::where('id', $Song['genre_id'])->first();
                             @endphp
@@ -83,21 +84,33 @@
                             @endforeach
 
                         @else
-                            @foreach ($songids as $id)
-                            @php
-                                $ActualSong = Song::where('id', $id)->first();
-                                $Genre = Genre::where('id', $ActualSong->id)->first();
-                            @endphp
-                                    <tr>
-                                        <td><img class="song-art" src="{{ $ActualSong->cover_art }}" width="50" height="50" alt="cover-art"></td>
-                                        <td>{{ $ActualSong->name }}</td>
-                                        <td>{{ $ActualSong->artist }}</td>
-                                        <td><a class="hidden-link" href="/genre/{{  $ActualSong->genre_id }}">{{ $Genre->name }}</a></td>
-                                        <td>{{ $ActualSong->length }}</td>
-                                        <td>{{ $ActualSong->date_added }}</td>
-                                        <td></td>
-                                    </tr>
-                            @endforeach
+                            @if (isset($songs['id']))
+                                @foreach ($songs['id'] as $id)
+                                @php
+                                    $ActualSong = Song::where('id', $id)->first();
+                                    $Genre = Genre::where('id', $ActualSong->id)->first();
+                                @endphp
+                                        <tr>
+                                            <td><img class="song-art" src="{{ $ActualSong->cover_art }}" width="50" height="50" alt="cover-art"></td>
+                                            <td>{{ $ActualSong->name }}</td>
+                                            <td>{{ $ActualSong->artist }}</td>
+                                            <td><a class="hidden-link" href="/genre/{{  $ActualSong->genre_id }}">{{ $Genre->name }}</a></td>
+                                            <td>{{ $ActualSong->length }}</td>
+                                            <td>{{ $ActualSong->date_added }}</td>
+                                            <td></td>
+                                        </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Deze playlist is leeg :/</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            @endif
                         @endif
                     </table>
                 </div>

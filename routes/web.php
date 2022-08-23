@@ -31,6 +31,7 @@ Route::view('/genres', 'pages/genre');
 Route::get('/user', [UserController::class, 'getSessionUser']);
 
 Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
+Route::get('/song/{songId}', [Song::class, 'getSong']);
 
 Route::controller(UserController::class)->group(function () {
     Route::prefix('user')->group(function () {
@@ -63,7 +64,6 @@ Route::controller(PlaylistController::class)->group(function () {
             Route::view('/create', 'pages/playlist');
             Route::post('/create', [PlaylistController::class, 'createPlaylist']);
             Route::get('/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
-            Route::get('/{playlistId}/edit', [PlaylistController::class, 'editPlaylist']);
             Route::get('/{playlistId}/save', [PlaylistController::class, 'savePlaylist']);
             Route::get('/{playlistId}/unsave', [PlaylistController::class, 'unsavePlaylist']);
             Route::get('/{playlistId}/delete', [PlaylistController::class, 'deletePlaylist']);
