@@ -87,7 +87,7 @@ class PlaylistController extends Controller
         return redirect('/user');
     }
 
-    public static function loadSessionPlaylists()
+    public static function loadPlaylists()
     {
         $id = 1;
         foreach (Playlist::all()->where('user_id', '=', session('user_id')) as $Playlist) {
