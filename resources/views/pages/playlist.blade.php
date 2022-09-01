@@ -3,7 +3,7 @@
     use App\Models\Genre;
     use App\Models\Song;
     use App\Models\SongInPlaylist;
-    use App\Http\Controllers\PlaylistController;
+    use App\Http\Classes\PlaylistClass;
 @endphp
 
 @include("layout/header")
@@ -68,7 +68,7 @@
                             <th></th>
                         </tr>
                         @if (str_contains(url()->current(), 'user')) 
-                            @foreach (session('playlists')[PlaylistController::getPlaylistIndex($id)]['songs'] as $Song)
+                            @foreach (session('playlists')[PlaylistClass::getPlaylistIndex($id)]['songs'] as $Song)
                             @php
                                 $Genre = Genre::where('id', $Song['genre_id'])->first();
                             @endphp
@@ -84,10 +84,10 @@
                             @endforeach
 
                         @else
-                            @if (isset($songs['id']))
-                                @foreach ($songs['id'] as $id)
+                            @if (isset($songs))
+                                @foreach ($songs as $song)
                                 @php
-                                    $ActualSong = Song::where('id', $id)->first();
+                                    $ActualSong = Song::where('id', $song)->first();
                                     $Genre = Genre::where('id', $ActualSong->id)->first();
                                 @endphp
                                         <tr>

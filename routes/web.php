@@ -10,6 +10,7 @@ use App\Models\Playlist;
 use App\Models\Song;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Facades\Route;
+use App\Http\Classes\PlaylistClass;
 
 /*
 |--------------------------------------------------------------------------
