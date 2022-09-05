@@ -8,6 +8,7 @@ use Exception;
 
 class LogController extends Controller
 {
+    // HEB HET OVERAL VERWIJDERD, want ja naast leukheid is het nutteloos
     public static function logAction($action)
     {
         try {

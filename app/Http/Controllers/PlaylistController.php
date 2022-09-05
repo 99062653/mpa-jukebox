@@ -54,20 +54,82 @@ class PlaylistController extends Controller
     // --SESSION--
     public function getSessionPlaylist($id)
     {
-        $data = session('playlists')[PlaylistClass::getPlaylistIndex($id)];
-
+        $data = PlaylistClass::getPlaylistData($id);
         $data = PlaylistClass::calculatePlaylistDuration($id, $data);
 
         return view('pages/playlist', $data);
     }
 
+    public function createPlaylist(Request $req)
+    {
+        $playlistClass = new PlaylistClass();
+        $playlistClass->createPlaylist($req->name, $req->color);
+
+        if (!$playlistClass->Name) {
+            return view('pages/playlist', ['issue' => 'Deze naam is al in gebruik']);
+        }
+
+        return redirect('/user');
+    }
+
+    public function deletePlaylist($id)
+    {
+        $playlistClass = new PlaylistClass();
+        $data = PlaylistClass::getPlaylistData($id);
+        $Playlist = Playlist::where('user_id', session('user_id'))->where('name', $data['name'])->first();
+
+        try {
+            foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
+                $ForeignKey->delete();
+            }
+
+            $Playlist->delete();
+        } catch (Exception $e) {
+            
+        }
+
+        $playlistClass->deletePlaylist($id);
+        return redirect('/user');
+    }
+
+    public function addToPlaylist($id, $songId)
+    {
+        $playlistClass = new PlaylistClass();
+        $Song = Song::where('id', '=', $songId)->first();
+        $songData = [
+            'id' => $Song->id,
+            'name' => $Song->name,
+            'artist' => $Song->artist,
+            'cover_art' => $Song->cover_art,
+            'genre_id' => $Song->genre_id,
+            'length' => $Song->length,
+            'date_added' => Carbon::now()
+        ];
+        
+        $playlistClass->addToPlaylist($id, $songData);
+
+        PlaylistClass::updatePlaylistStatus($id);
+        return redirect('/user/playlist/' . $id);
+    }
+
+    public function removeFromPlaylist($id, $songId)
+    {
+        $playlistClass = new PlaylistClass();
+        $playlistClass->removeFromPlaylist($id, $songId);
+
+        PlaylistClass::updatePlaylistStatus($id);
+        return redirect('/user/playlist/' . $id);
+    }
+
     public function savePlaylist($id)
     {
-        $data = session('playlists')[PlaylistClass::getPlaylistIndex($id)];
+        $data = PlaylistClass::getPlaylistData($id);
+        $playlistClass = new PlaylistClass();
         $Playlist = Playlist::where('user_id', '=', session('user_id'))
             ->where('name', '=', $data['name'])
             ->first();
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
+
+        $playlistClass->savePlaylist($id);
 
         if ($Playlist == null) {
             $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
@@ -84,82 +146,13 @@ class PlaylistController extends Controller
 
     public function unsavePlaylist($id)
     {
-        $data = session('playlists')[PlaylistClass::getPlaylistIndex($id)];
+        $data = PlaylistClass::getPlaylistData($id);
+        $playlistClass = new PlaylistClass();
         $Playlist = Playlist::where('user_id', '=', session('user_id'))->where('name', '=', $data['name']);
-        // $SongInPlaylists = SongInPlaylist::where()
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
 
+        $playlistClass->unsavePlaylist($id);
         $Playlist->delete();
 
         return redirect('/user/playlist/' . $id);
-    }
-
-    public function addToPlaylist($id, $songId)
-    {
-        $Song = Song::where('id', '=', $songId)->first();
-        session()->push('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs', [
-            'id' => $Song->id,
-            'name' => $Song->name,
-            'artist' => $Song->artist,
-            'cover_art' => $Song->cover_art,
-            'genre_id' => $Song->genre_id,
-            'length' => $Song->length,
-            'date_added' => Carbon::now()
-        ]);
-
-        LogController::logAction('added song ' . $Song->name . ' to playlist ' . $id);
-        PlaylistClass::updatePlaylistStatus($id);
-        return redirect(url()->previous());
-    }
-
-    public function removeFromPlaylist($id, $songId)
-    {
-        $Song = Song::where('id', '=', $songId)->first();
-        session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songId);
-
-        LogController::logAction('removed song ' . $Song->name . ' from playlist ' . $id);
-        PlaylistClass::updatePlaylistStatus($id);
-        return redirect('/user/playlist/' . $id);
-    }
-
-    public function deletePlaylist($id)
-    {
-        $data = session('playlists')[PlaylistClass::getPlaylistIndex($id)];
-        $Playlist = Playlist::where('user_id', session('user_id'))->where('name', $data['name'])->first();
-
-        try {
-            foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
-                $ForeignKey->delete();
-            }
-
-            $Playlist->delete();
-        } catch (Exception $e) {
-
-        }
-
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.deleted', true);
-
-        return redirect('/user');
-    }
-
-    public function createPlaylist(Request $req)
-    {
-        if (session('playlists')) {
-            foreach (session('playlists') as $playlist) {
-                if ($playlist['name'] == $req->name) {
-                    return view('pages/playlist', ['issue' => 'Deze naam is al in gebruik']);
-                }
-            }
-        }
-
-        if (session('playlists')) {
-            $id = count(session('playlists')) + 1;
-        } else {
-            $id = 1;
-        }
-        session()->push('playlists', ['id' => $id, 'name' => $req->name, 'rgb_color' => $req->color, 'songs' => [], 'saved' => false, 'deleted' => false]);
-
-        LogController::logAction('created a playlist');
-        return redirect('/user');
     }
 }
