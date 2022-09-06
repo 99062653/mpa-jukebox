@@ -2,6 +2,8 @@
 
 namespace App\Http\Classes;
 
+use phpDocumentor\Reflection\PseudoTypes\True_;
+
 class PlaylistClass 
 {
     public $Id;
@@ -25,9 +27,13 @@ class PlaylistClass
         return $data;
     }
 
-    public static function updatePlaylistStatus($id)
+    public static function changePlaylistStatus($id)
     {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
+        if(session('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved')) {
+            session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
+        } else {
+            session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
+        }
     }
 
     public static function calculatePlaylistDuration($id, $data) 
@@ -87,23 +93,13 @@ class PlaylistClass
             'date_added' => $songdata['date_added']
         ]);
 
-        PlaylistClass::updatePlaylistStatus($id);
+        PlaylistClass::changePlaylistStatus($id);
     }
 
     public function removeFromPlaylist($id, $songId)
     {
         session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songId);
 
-        PlaylistClass::updatePlaylistStatus($id);
-    }
-
-    public function savePlaylist($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
-    }
-
-    public function unsavePlaylist($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
+        PlaylistClass::changePlaylistStatus($id);
     }
 }
