@@ -57,6 +57,8 @@
                                                 {{ $Playlist['name'] }}
                                                 @if ($Playlist['saved'])
                                                     <i class="bi bi-check"></i>
+                                                @else
+                                                    <i class="bi bi-x"></i>
                                                 @endif
                                             </b> 
                                         </div>
