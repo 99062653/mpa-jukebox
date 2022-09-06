@@ -90,14 +90,10 @@ class PlaylistClass
             'length' => $songdata['length'],
             'date_added' => $songdata['date_added']
         ]);
-
-        PlaylistClass::changePlaylistStatus($id);
     }
 
     public function removeFromPlaylist($id, $songid)
     {
         session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
-
-        PlaylistClass::changePlaylistStatus($id);
     }
 }

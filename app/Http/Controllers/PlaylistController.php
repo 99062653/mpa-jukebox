@@ -149,7 +149,10 @@ class PlaylistController extends Controller
     public function unsavePlaylist($id)
     {
         $data = PlaylistClass::getPlaylistData($id);
-        $Playlist = Playlist::where('user_id', '=', session('user_id'))->where('name', '=', $data['name']);
+        $Playlist = Playlist::select('*')
+                            ->where('user_id', '=', session('user_id'))
+                            ->where('name', '=', $data['name'])
+                            ->get();
 
         try {
             foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
