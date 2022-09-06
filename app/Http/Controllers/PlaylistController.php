@@ -127,17 +127,18 @@ class PlaylistController extends Controller
     public function savePlaylist($id)
     {
         $data = PlaylistClass::getPlaylistData($id);
-        $Playlist = Playlist::where('user_id', '=', session('user_id'))
-            ->where('name', '=', $data['name'])
-            ->first();
-
+        $Playlist = Playlist::select('*')
+                            ->where('user_id', '=', session('user_id'))
+                            ->where('name', '=', $data['name'])
+                            ->first();
+                            
         if ($Playlist == null) {
             $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
         } else {
             SongInPlaylist::where('playlist_id', $Playlist->id)->delete();
         }
 
-        foreach (PlaylistClass::getPlaylistData($id)['songs'] as $Song) {
+        foreach ($data['songs'] as $Song) {
             SongInPlaylist::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
         }
 
@@ -152,17 +153,13 @@ class PlaylistController extends Controller
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
                             ->where('name', '=', $data['name'])
-                            ->get();
+                            ->first();
 
-        try {
-            foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
-                $ForeignKey->delete();
-            }
-
-            $Playlist->delete();
-        } catch (Exception $e) {
-            
+        foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $Song) {
+            $Song->delete();
         }
+
+        $Playlist->delete();
 
         PlaylistClass::changePlaylistStatus($id);
 
