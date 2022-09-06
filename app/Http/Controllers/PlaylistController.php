@@ -22,7 +22,7 @@ class PlaylistController extends Controller
             $playlistClass::changePlaylistStatus($id);
             foreach (SongInPlaylist::where('playlist_id', '=', $Playlist->id)->get() as $Song) {
                 $actualSong = Song::where('id', '=', $Song->song_id)->first();
-                session()->push('playlists.' .  PlaylistClass::getPlaylistIndex($id) . '.songs', [
+                $songData = [
                     'id' => $actualSong->id,
                     'name' => $actualSong->name,
                     'artist' => $actualSong->artist,
@@ -30,7 +30,8 @@ class PlaylistController extends Controller
                     'genre_id' => $actualSong->genre_id,
                     'length' => $actualSong->length,
                     'date_added' => $actualSong->date_added
-                ]);
+                ];
+                $playlistClass->addToPlaylist($id, $songData);
             }
             $id++;
         }
