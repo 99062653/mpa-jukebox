@@ -25,13 +25,14 @@ class PlaylistClass
         return $data;
     }
 
-    public static function changePlaylistStatus($id)
+    public static function setPlaylistSaved($id)
     {
-        if(session('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved')) {
-            session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
-        } else {
-            session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
-        }
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
+    }
+
+    public static function setPlaylistUnsaved($id)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
     }
 
     public static function calculatePlaylistDuration($id, $data) 
