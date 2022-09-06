@@ -2,8 +2,6 @@
 
 namespace App\Http\Classes;
 
-use phpDocumentor\Reflection\PseudoTypes\True_;
-
 class PlaylistClass 
 {
     public $Id;
@@ -96,9 +94,9 @@ class PlaylistClass
         PlaylistClass::changePlaylistStatus($id);
     }
 
-    public function removeFromPlaylist($id, $songId)
+    public function removeFromPlaylist($id, $songid)
     {
-        session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songId);
+        session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
 
         PlaylistClass::changePlaylistStatus($id);
     }
