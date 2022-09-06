@@ -25,16 +25,6 @@ class PlaylistClass
         return $data;
     }
 
-    public static function setPlaylistSaved($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
-    }
-
-    public static function setPlaylistUnsaved($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
-    }
-
     public static function calculatePlaylistDuration($id, $data) 
     {
         $amount = 0;
@@ -96,5 +86,15 @@ class PlaylistClass
     public function removeFromPlaylist($id, $songid)
     {
         session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
+    }
+
+    public function setPlaylistSaved($id)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
+    }
+
+    public function setPlaylistUnsaved($id)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
     }
 }
