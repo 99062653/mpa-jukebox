@@ -41,11 +41,6 @@ class PlaylistClass
 
         return $data;
     }
-
-    public static function changePlaylistStatus($id, $state)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', $state);
-    }
     
     //--REGULAR--
     public function createPlaylist($name, $rgb_color) 
@@ -85,5 +80,10 @@ class PlaylistClass
     public function removeFromPlaylist($id, $songid)
     {
         session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
+    }
+
+    public function changePlaylistStatus($id, $state)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', $state);
     }
 }

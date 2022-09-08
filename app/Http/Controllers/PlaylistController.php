@@ -19,7 +19,7 @@ class PlaylistController extends Controller
         $id = 1;
         foreach (Playlist::where('user_id', '=', session('user_id'))->get() as $Playlist) {
             $playlistClass->createPlaylist($Playlist->name, $Playlist->rgb_color);
-            PlaylistClass::changePlaylistStatus($id, true);
+            $playlistClass->changePlaylistStatus($id, true);
             foreach (SongInPlaylist::where('playlist_id', '=', $Playlist->id)->get() as $Song) {
                 $actualSong = Song::where('id', '=', $Song->song_id)->first();
                 $songData = [
@@ -73,8 +73,8 @@ class PlaylistController extends Controller
 
     public function deletePlaylist($id)
     {
-        $playlistClass = new PlaylistClass();
         $data = PlaylistClass::getPlaylistData($id);
+        $playlistClass = new PlaylistClass();
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
                             ->where('uniqid', '=', $data['uniqid'])
@@ -109,7 +109,7 @@ class PlaylistController extends Controller
         ];
         
         $playlistClass->addToPlaylist($id, $songData);
-        PlaylistClass::changePlaylistStatus($id, false);
+        $playlistClass->changePlaylistStatus($id, false);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -118,7 +118,7 @@ class PlaylistController extends Controller
     {
         $playlistClass = new PlaylistClass();
         $playlistClass->removeFromPlaylist($id, $songId);
-        PlaylistClass::changePlaylistStatus($id, false);
+        $playlistClass->changePlaylistStatus($id, false);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -126,6 +126,7 @@ class PlaylistController extends Controller
     public function savePlaylist($id)
     {
         $data = PlaylistClass::getPlaylistData($id);
+        $playlistClass = new PlaylistClass();
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
                             ->where('uniqid', '=', $data['uniqid'])
@@ -141,7 +142,7 @@ class PlaylistController extends Controller
             SongInPlaylist::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
         }
 
-        PlaylistClass::changePlaylistStatus($id, true);
+        $playlistClass->changePlaylistStatus($id, true);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -149,6 +150,7 @@ class PlaylistController extends Controller
     public function unsavePlaylist($id)
     {
         $data = PlaylistClass::getPlaylistData($id);
+        $playlistClass = new PlaylistClass();
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
                             ->where('uniqid', '=', $data['uniqid'])
@@ -159,7 +161,7 @@ class PlaylistController extends Controller
         }
 
         $Playlist->delete();
-        PlaylistClass::calculatePlaylistDuration($id, false);
+        $playlistClass->calculatePlaylistDuration($id, false);
 
         return redirect('/user/playlist/' . $id);
     }
