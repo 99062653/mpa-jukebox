@@ -10,7 +10,9 @@ class Playlist extends BaseModel
     use HasFactory;
 
     // VOOR DE TOEKOMST: SPECIALE HASH TOEVOEGEN ZODAT JE MEERDERE DEZELFDE NAAM PLAYLIST KAN HEBBEN
+    // EDIT: DONE
     protected $fillable = [
+        'uniqid',
         'user_id',
         'name',
         'rgb_color',

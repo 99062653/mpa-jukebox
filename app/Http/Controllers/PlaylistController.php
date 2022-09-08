@@ -19,7 +19,7 @@ class PlaylistController extends Controller
         $id = 1;
         foreach (Playlist::where('user_id', '=', session('user_id'))->get() as $Playlist) {
             $playlistClass->createPlaylist($Playlist->name, $Playlist->rgb_color);
-            $playlistClass->setPlaylistSaved($id);
+            PlaylistClass::changePlaylistStatus($id, true);
             foreach (SongInPlaylist::where('playlist_id', '=', $Playlist->id)->get() as $Song) {
                 $actualSong = Song::where('id', '=', $Song->song_id)->first();
                 $songData = [
@@ -68,10 +68,6 @@ class PlaylistController extends Controller
         $playlistClass = new PlaylistClass();
         $playlistClass->createPlaylist($req->name, $req->color);
 
-        if (!$playlistClass->Name) {
-            return view('pages/playlist', ['issue' => 'Deze naam is al in gebruik']);
-        }
-
         return redirect('/user');
     }
 
@@ -79,7 +75,10 @@ class PlaylistController extends Controller
     {
         $playlistClass = new PlaylistClass();
         $data = PlaylistClass::getPlaylistData($id);
-        $Playlist = Playlist::where('user_id', session('user_id'))->where('name', $data['name'])->first();
+        $Playlist = Playlist::select('*')
+                            ->where('user_id', '=', session('user_id'))
+                            ->where('uniqid', '=', $data['uniqid'])
+                            ->first();
 
         try {
             foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $ForeignKey) {
@@ -110,7 +109,7 @@ class PlaylistController extends Controller
         ];
         
         $playlistClass->addToPlaylist($id, $songData);
-        $playlistClass->setPlaylistUnsaved($id);
+        PlaylistClass::changePlaylistStatus($id, false);
 
         return redirect('/user/playlist/' . $id);
     }
@@ -119,22 +118,21 @@ class PlaylistController extends Controller
     {
         $playlistClass = new PlaylistClass();
         $playlistClass->removeFromPlaylist($id, $songId);
-        $playlistClass->setPlaylistUnsaved($id);
+        PlaylistClass::changePlaylistStatus($id, false);
 
         return redirect('/user/playlist/' . $id);
     }
 
     public function savePlaylist($id)
     {
-        $playlistClass = new PlaylistClass();
         $data = PlaylistClass::getPlaylistData($id);
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
-                            ->where('name', '=', $data['name'])
+                            ->where('uniqid', '=', $data['uniqid'])
                             ->first();
                             
         if ($Playlist == null) {
-            $Playlist = Playlist::create(['user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
+            $Playlist = Playlist::create(['uniqid' => $data['uniqid'], 'user_id' => session('user_id'), 'name' => $data['name'], 'rgb_color' => $data['rgb_color'], 'date_created' => Carbon::now()]);
         } else {
             SongInPlaylist::where('playlist_id', $Playlist->id)->delete();
         }
@@ -143,18 +141,17 @@ class PlaylistController extends Controller
             SongInPlaylist::create(['song_id' => $Song['id'], 'playlist_id' => $Playlist->id]);
         }
 
-        $playlistClass->setPlaylistSaved($id);
+        PlaylistClass::changePlaylistStatus($id, true);
 
         return redirect('/user/playlist/' . $id);
     }
 
     public function unsavePlaylist($id)
     {
-        $playlistClass = new PlaylistClass();
         $data = PlaylistClass::getPlaylistData($id);
         $Playlist = Playlist::select('*')
                             ->where('user_id', '=', session('user_id'))
-                            ->where('name', '=', $data['name'])
+                            ->where('uniqid', '=', $data['uniqid'])
                             ->first();
 
         foreach (SongInPlaylist::where('playlist_id', $Playlist->id)->get() as $Song) {
@@ -162,7 +159,7 @@ class PlaylistController extends Controller
         }
 
         $Playlist->delete();
-        $playlistClass->setPlaylistUnsaved($id);
+        PlaylistClass::calculatePlaylistDuration($id, false);
 
         return redirect('/user/playlist/' . $id);
     }

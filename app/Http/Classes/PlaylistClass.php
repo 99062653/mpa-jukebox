@@ -5,6 +5,7 @@ namespace App\Http\Classes;
 class PlaylistClass 
 {
     public $Id;
+    public $Uniqid;
     public $Name;
     public $Rgb_color;
     
@@ -40,18 +41,15 @@ class PlaylistClass
 
         return $data;
     }
+
+    public static function changePlaylistStatus($id, $state)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', $state);
+    }
     
     //--REGULAR--
     public function createPlaylist($name, $rgb_color) 
     {
-        if (session('playlists')) {
-            foreach (session('playlists') as $playlist) {
-                if ($playlist['name'] == $name) {
-                    break;
-                }
-            }
-        }
-
         if (session('playlists')) {
             $id = count(session('playlists')) + 1;
         } else {
@@ -59,10 +57,11 @@ class PlaylistClass
         }
 
         $this->Id = $id;
+        $this->Uniqid = uniqid();
         $this->Name = $name;
         $this->Rgb_color = $rgb_color;
 
-        session()->push('playlists', ['id' => $id, 'name' => $name, 'rgb_color' => $rgb_color, 'songs' => [], 'saved' => false, 'deleted' => false]);
+        session()->push('playlists', ['id' => $id, 'uniqid' =>$this->Uniqid,  'name' => $name, 'rgb_color' => $rgb_color, 'songs' => [], 'saved' => false, 'deleted' => false]);
     }
 
     public function deletePlaylist($id)
@@ -86,15 +85,5 @@ class PlaylistClass
     public function removeFromPlaylist($id, $songid)
     {
         session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
-    }
-
-    public function setPlaylistSaved($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', true);
-    }
-
-    public function setPlaylistUnsaved($id)
-    {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', false);
     }
 }

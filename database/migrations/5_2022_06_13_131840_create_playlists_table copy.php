@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('playlists', function (Blueprint $table) {
             $table->id();
+            $table->string('uniqid');
             $table->unsignedBigInteger("user_id");
             $table->string('name');
             $table->string('rgb_color');
