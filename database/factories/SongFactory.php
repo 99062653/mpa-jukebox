@@ -12,6 +12,8 @@ class SongFactory extends Factory
 {
     /**
      * Define the model's default state.
+     * php artisan tinker
+     * Song::factory()->count(5)->create()
      *
      * @return array<string, mixed>
      */
