@@ -36,6 +36,7 @@
                 <div id="form">
                     <form action="/user/playlist/{playlistId}/edit" method="POST">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $id }}">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Name"

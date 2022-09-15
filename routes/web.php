@@ -27,13 +27,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::view('/genres', 'pages/genre');
-
-Route::get('/user', [UserController::class, 'getSessionUser']);
-
-Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
-Route::get('/song/{songId}', [Song::class, 'getSong']);
-
 Route::controller(UserController::class)->group(function () {
     Route::prefix('user')->group(function () {
         Route::view('/login', 'pages/user');
@@ -42,6 +35,7 @@ Route::controller(UserController::class)->group(function () {
         
         Route::post('/login', [UserController::class, 'login']);
         Route::post('/register', [UserController::class, 'register']);
+        
         Route::get('/logout', [UserController::class, 'logout']);
 
         Route::post('/edit/password', [UserController::class, 'changePassword']);
@@ -63,8 +57,10 @@ Route::controller(PlaylistController::class)->group(function () {
     Route::prefix('user')->group(function () {
         Route::prefix('playlist')->group(function () {
             Route::view('/create', 'pages/playlist');
+
             Route::post('/create', [PlaylistController::class, 'createPlaylist']);
             Route::post('/{playlistId}/edit', [PlaylistController::class, 'editPlaylist']);
+
             Route::get('/{playlistId}', [PlaylistController::class, 'getPlaylist']);
             Route::get('/{playlistId}/edit', [PlaylistController::class, 'getPlaylistEdit']);
             Route::get('/{playlistId}/save', [PlaylistController::class, 'savePlaylist']);
@@ -78,5 +74,10 @@ Route::controller(PlaylistController::class)->group(function () {
 
     Route::view('/playlist', 'pages/playlist');
     Route::view('/playlist/edit', 'pages/playlist');
+    Route::view('/genres', 'pages/genre');
+
+    Route::get('/user', [UserController::class, 'getSessionUser']);
+    Route::get('/genre/{genreId}', [GenreController::class, 'getGenre']);
+    Route::get('/song/{songId}', [Song::class, 'getSong']);
     Route::get('/playlist/{playlistId}', [PlaylistController::class, 'getEloquentPlaylist']);
 });
