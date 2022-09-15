@@ -64,12 +64,12 @@ Route::controller(PlaylistController::class)->group(function () {
         Route::prefix('playlist')->group(function () {
             Route::view('/create', 'pages/playlist');
             Route::post('/create', [PlaylistController::class, 'createPlaylist']);
-            Route::get('/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
+            Route::post('/{playlistId}/edit', [PlaylistController::class, 'editPlaylist']);
+            Route::get('/{playlistId}', [PlaylistController::class, 'getPlaylist']);
+            Route::get('/{playlistId}/edit', [PlaylistController::class, 'getPlaylistEdit']);
             Route::get('/{playlistId}/save', [PlaylistController::class, 'savePlaylist']);
             Route::get('/{playlistId}/unsave', [PlaylistController::class, 'unsavePlaylist']);
             Route::get('/{playlistId}/delete', [PlaylistController::class, 'deletePlaylist']);
-
-            Route::get('/{playlistId}', [PlaylistController::class, 'getSessionPlaylist']);
 
             Route::get('/{playlistId}/add/{songId}', [PlaylistController::class, 'addToPlaylist']);
             Route::get('/{playlistId}/remove/{songId}', [PlaylistController::class, 'removeFromPlaylist']);

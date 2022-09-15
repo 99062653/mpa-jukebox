@@ -10,28 +10,32 @@ class PlaylistClass
     public $Rgb_color;
     
     // --STATICS--
-    public static function getPlaylistIndex($id)
+
+    //haal de playlist index op door middel van een gegeven id
+    public static function getPlaylistIndex($playlistId)
     {
         for ($i = 0; $i < count(session('playlists')); $i++) {
-            if (session('playlists')[$i]['id'] == $id) {
+            if (session('playlists')[$i]['id'] == $playlistId) {
                return $i;
             }
         }
     }
 
-    public static function getPlaylistData($id) 
+    //geeft data terug door een gegeven id
+    public static function getPlaylistData($playlistId) 
     {
-        $data = session('playlists')[PlaylistClass::getPlaylistIndex($id)];
+        $data = session('playlists')[PlaylistClass::getPlaylistIndex($playlistId)];
 
         return $data;
     }
 
-    public static function calculatePlaylistDuration($id, $data) 
+    //rekent uit hoeveel minuten een playlist duurt doormiddel van id en data
+    public static function calculatePlaylistDuration($playlistId, $data) 
     {
         $amount = 0;
         $length = 0;
 
-        foreach (session('playlists')[PlaylistClass::getPlaylistIndex($id)]['songs'] as $Song) {
+        foreach (session('playlists')[PlaylistClass::getPlaylistIndex($playlistId)]['songs'] as $Song) {
             $length += ceil((float)str_replace(':', '.', $Song['length'])); //cast als float en ceil round hem up
             $amount++;
         }
@@ -43,6 +47,8 @@ class PlaylistClass
     }
     
     //--REGULAR--
+
+    //maakt een lokale playlist aan
     public function createPlaylist($name, $rgb_color) 
     {
         if (session('playlists')) {
@@ -59,11 +65,20 @@ class PlaylistClass
         session()->push('playlists', ['id' => $id, 'uniqid' =>$this->Uniqid,  'name' => $name, 'rgb_color' => $rgb_color, 'songs' => [], 'saved' => false, 'deleted' => false]);
     }
 
-    public function deletePlaylist($id)
+    //past een lokale playlist aan
+    public function editPlaylist($playlistId, $name, $rgb_color) 
     {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.deleted', true);
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($playlistId) . '.name', $name);
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($playlistId) . '.rgb_color', $rgb_color);
     }
 
+    //verwijdert een lokale playlist
+    public function deletePlaylist($playlistId)
+    {
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($playlistId) . '.deleted', true);
+    }
+
+    //voegt een liedje toe aan een lokale playlist
     public function addToPlaylist($id, $songdata = [])
     {
         session()->push('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs', [
@@ -77,13 +92,15 @@ class PlaylistClass
         ]);
     }
 
-    public function removeFromPlaylist($id, $songid)
+    //verwijdert een liedje van een lokale playlist
+    public function removeFromPlaylist($playlistId, $songid)
     {
-        session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.songs.' . $songid);
+        session()->pull('playlists.' . PlaylistClass::getPlaylistIndex($playlistId) . '.songs.' . $songid);
     }
 
-    public function changePlaylistStatus($id, $state)
+    //verandert de lokale playlist door middel van een id en een true/false statement
+    public function changePlaylistStatus($playlistId, $state)
     {
-        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($id) . '.saved', $state);
+        session()->put('playlists.' . PlaylistClass::getPlaylistIndex($playlistId) . '.saved', $state);
     }
 }

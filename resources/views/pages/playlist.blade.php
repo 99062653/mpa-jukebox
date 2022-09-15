@@ -31,6 +31,27 @@
                     </form>
                 </div>
                 @break
+            @case('user/playlist/{playlistId}/edit')
+                @include("layout/nav")
+                <div id="form">
+                    <form action="/user/playlist/{playlistId}/edit" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name"
+                                value="{{ $name ?? '' }}" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Rgb Kleur</label>
+                            <input type="color" name="color" class="form-control" 
+                                value="{{ $rgb_color ?? '' }}" required />
+                        </div>
+                        <span class="error">{{ $issue ?? '' }}</span>
+                        <a type="button" class="link back" href="/user">Terug</a>
+                        <input type="submit" class="link" value="Create" />
+                    </form>
+                </div>
+                @break
 
             @default
                 @include("layout/nav")
