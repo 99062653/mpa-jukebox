@@ -82,6 +82,7 @@ class PlaylistController extends Controller
     {
         $playlistClass = new PlaylistClass();
         $playlistClass->editPlaylist($req->id, $req->name, $req->color);
+        $playlistClass->changePlaylistStatus($req->id, false);
 
         return redirect('/user');
     }
